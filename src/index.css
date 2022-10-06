@@ -1,13 +1,115 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@layer components {
+	/* Layout */
+
+	.fc-full {
+		@apply w-full flex flex-col;
+	}
+
+	.fr-full {
+		@apply w-full flex flex-row;
+	}
+
+	.fr-center-center {
+		@apply flex flex-row items-center justify-center;
+	}
+
+	.fc-center-center {
+		@apply flex flex-col items-center justify-center;
+	}
+
+	.fr-center-center-full {
+		@apply flex flex-row items-center justify-center;
+	}
+
+	.fc-center-center-full {
+		@apply flex flex-col items-center justify-center;
+	}
+
+	.fc-center-center-full-full {
+		@apply flex flex-col items-center justify-center w-full h-full;
+	}
+
+	.fr-center {
+		@apply flex flex-row items-center;
+	}
+
+	.fc-center {
+		@apply flex flex-col items-center;
+	}
+
+	.fr-center-full {
+		@apply w-full flex flex-row items-center;
+	}
+
+	.fc-center-full {
+		@apply w-full flex flex-col items-center;
+	}
+
+	.fr-center-around-full {
+		@apply w-full flex flex-row items-center justify-around;
+	}
+
+	.fc-center-around-full {
+		@apply w-full flex flex-col items-center justify-around;
+	}
+
+	.fr-center-around-full-full {
+		@apply w-full h-full flex flex-row items-center justify-around;
+	}
+
+	.fc-center-around-full-full {
+		@apply w-full h-full flex flex-col items-center justify-around;
+	}
+
+	.fr-center-evenly-full {
+		@apply w-full flex flex-row items-center justify-evenly;
+	}
+
+	.fc-center-evenly-full {
+		@apply w-full flex flex-col items-center justify-evenly;
+	}
+
+	.fr-center-md {
+		@apply w-2/3 flex flex-row items-center;
+	}
+
+	.fc-center-md {
+		@apply w-2/3 flex flex-col items-center;
+	}
+
+	.fr-center-between-md {
+		@apply w-2/3 flex flex-row items-center justify-between;
+	}
+
+	.fc-center-between-md {
+		@apply w-2/3 flex flex-col items-center justify-between;
+	}
+
+	.fr-center-between-full {
+		@apply w-full flex flex-row items-center justify-between;
+	}
+
+	.fc-center-between-full {
+		@apply w-full flex flex-col items-center justify-between;
+	}
+
+	.fr-center-full-full {
+		@apply w-full h-full flex flex-row items-center;
+	}
+
+	.fc-center-full-full {
+		@apply w-full h-full flex flex-col items-center;
+	}
+
+	.fc-center-between-full-full {
+		@apply w-full h-full flex flex-col items-center justify-between;
+	}
+
+	.fr-center-between-full-full {
+		@apply w-full h-full flex flex-row items-center justify-between;
+	}
 }

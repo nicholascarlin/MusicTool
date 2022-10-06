@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from './components/UI/Header';
+import React from 'react';
+import { getNoteFromInterval } from './utils/Intervals';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<div className='w-screen h-screen p-4'>
+			<Header />
+			<div>test2</div>
+			<button
+				onClick={() => {
+					getNoteFromInterval('A', 2);
+				}}>
+				test
+			</button>
+		</div>
+	);
 }
-
 export default App;
