@@ -10,7 +10,7 @@ body {
 	z-index: 1;
 	padding: 20px;
 	max-width: 100%;
-	margin: 20px auto 0px auto;
+	margin: 0px auto 0px auto;
 	border-bottom: 2px solid rgb(216, 215, 215);
 }
 @media (max-width: 650px) {
