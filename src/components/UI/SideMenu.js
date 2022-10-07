@@ -5,8 +5,7 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 
 const SideMenu = () => {
 	const [isOpen, setIsOpen] = useState(false);
-	let filterIconStyle =
-		'absolute right-4 top-4 text-4xl cursor-pointer hover:text-5xl transition-all z-10';
+
 	return (
 		<>
 			{!isOpen ? (
@@ -14,14 +13,18 @@ const SideMenu = () => {
 					onClick={() => {
 						setIsOpen(true);
 					}}
-					className={filterIconStyle}
+					className={
+						'absolute right-4 top-4 text-4xl cursor-pointer hover:text-5xl transition-all z-10'
+					}
 				/>
 			) : (
 				<AiOutlineClose
 					onClick={() => {
 						setIsOpen(false);
 					}}
-					className={filterIconStyle}
+					className={
+						'absolute right-4 top-4 text-4xl cursor-pointer hover:text-5xl transition-all z-10 text-white'
+					}
 				/>
 			)}
 			<div
