@@ -11,7 +11,7 @@ function App() {
 	return (
 		<div className='w-screen h-screen'>
 			<Header />
-			<div className='w-full h-[calc(100vh-105px)] overflow-hidden relative'>
+			<div className='w-full h-[calc(100vh-105px)] overflow-hidden relative fr-full'>
 				<IntervalFromNotePage />
 				<SideMenu />
 			</div>

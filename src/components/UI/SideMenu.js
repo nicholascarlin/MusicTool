@@ -6,6 +6,9 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 const SideMenu = () => {
 	const [isOpen, setIsOpen] = useState(false);
 
+	let iconStyle =
+		'absolute right-4 top-4 text-4xl cursor-pointer hover:text-5xl transition-all z-10';
+
 	return (
 		<>
 			{!isOpen ? (
@@ -13,23 +16,19 @@ const SideMenu = () => {
 					onClick={() => {
 						setIsOpen(true);
 					}}
-					className={
-						'absolute right-4 top-4 text-4xl cursor-pointer hover:text-5xl transition-all z-10'
-					}
+					className={iconStyle}
 				/>
 			) : (
 				<AiOutlineClose
 					onClick={() => {
 						setIsOpen(false);
 					}}
-					className={
-						'absolute right-4 top-4 text-4xl cursor-pointer hover:text-5xl transition-all z-10 text-white'
-					}
+					className={iconStyle}
 				/>
 			)}
 			<div
-				className={`w-[25vw] h-full fixed top-[105px] right-0 bg-red-500 ${
-					isOpen ? 'translate-x-0' : 'translate-x-full'
+				className={`border-l-2 h-full  marginTop-[105px] right-0 ${
+					isOpen ? 'w-[25vw]' : 'w-0'
 				} ease-in-out duration-300`}></div>
 		</>
 	);
