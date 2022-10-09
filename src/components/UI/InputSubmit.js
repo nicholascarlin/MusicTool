@@ -3,9 +3,24 @@ import React, { useState } from 'react';
 
 import { FiRefreshCw } from 'react-icons/fi';
 
-const InputSubmit = ({ InputRef, OnRefresh, OnSubmit }) => {
-	const [isAnswerCorrect, setAnswerStatus] = useState(null);
+const InputSubmit = ({
+	IsAnswerCorrect,
+	InputRef,
+	OnRefresh,
+	OnSubmit,
+	OnShowClick,
+}) => {
 	const [refreshAnimation, setRefreshAnimationStatus] = useState(false);
+	const [buttonText, setButtonText] = useState('Submit');
+
+	const HandleSubClick = () => {
+		if (IsAnswerCorrect !== true) {
+			setButtonText('Next');
+			OnSubmit();
+		} else {
+			OnRefresh();
+		}
+	};
 
 	return (
 		<div>
@@ -26,26 +41,26 @@ const InputSubmit = ({ InputRef, OnRefresh, OnSubmit }) => {
 				type='text'
 				placeholder='Answer Here'
 				className={`focus:outline-none border-2 block p-4 rounded-full w-72 mt-10 ${
-					isAnswerCorrect === null
+					IsAnswerCorrect === null
 						? 'border-gray-500'
-						: isAnswerCorrect === true
+						: IsAnswerCorrect === true
 						? 'border-green-500'
 						: 'border-red-500'
 				} transition-all duration-100`}
 			/>
 			<div
 				onClick={() => {
-					setAnswerStatus(null);
+					OnShowClick();
 				}}
 				className='hover:underline cursor-pointer text-gray-500 mt-4 text-center'>
 				Show Answer
 			</div>
 			<button
 				onClick={() => {
-					OnSubmit();
+					HandleSubClick();
 				}}
 				className='mx-auto block border-2 p-4 px-12 rounded-full mt-6 border-blue-500'>
-				Submit
+				{buttonText}
 			</button>
 		</div>
 	);

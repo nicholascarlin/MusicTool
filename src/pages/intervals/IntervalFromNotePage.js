@@ -7,9 +7,11 @@ import { Interval } from '@tonaljs/tonal';
 import { VerifyIntervals } from '../../utils/IntervalVerificationFunctions';
 
 const IntervalFromNotePage = ({ IsSharp }) => {
+	// TODO: Allow Note 1 to be set
 	const [note1, setNote1] = useState(GetRandomNote(IsSharp));
 	const [note2, setNote2] = useState(GetRandomNote(IsSharp));
 	const [answer, setAnswer] = useState(null);
+	const [isAnswerCorrect, setAnswerCorrectStatus] = useState(null);
 
 	const inputRef = useRef();
 
@@ -20,11 +22,21 @@ const IntervalFromNotePage = ({ IsSharp }) => {
 	const OnRefresh = () => {
 		setNote1(GetRandomNote(IsSharp));
 		setNote2(GetRandomNote(IsSharp));
+		setAnswerCorrectStatus(null);
+		inputRef.current.value = '';
 	};
 
 	const OnSubmit = () => {
-		console.log('sub');
-		VerifyIntervals(inputRef.current.value, answer);
+		if (inputRef.current.value !== '') {
+			setAnswerCorrectStatus(VerifyIntervals(inputRef.current.value, answer));
+		} else {
+			setAnswerCorrectStatus(false);
+		}
+	};
+
+	const OnShowAnswer = () => {
+		inputRef.current.value = Interval.distance(note1, note2);
+		setAnswerCorrectStatus(null);
 	};
 
 	return (
@@ -40,6 +52,8 @@ const IntervalFromNotePage = ({ IsSharp }) => {
 				InputRef={inputRef}
 				OnSubmit={OnSubmit}
 				OnRefresh={OnRefresh}
+				IsAnswerCorrect={isAnswerCorrect}
+				OnShowClick={OnShowAnswer}
 			/>
 		</div>
 	);

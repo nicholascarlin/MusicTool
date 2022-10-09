@@ -18,5 +18,5 @@ export const VerifyIntervals = (resp, answer) => {
 		}
 	});
 
-	console.log('RESP', resp);
+	return resp.every((item) => answer.includes(item));
 };
