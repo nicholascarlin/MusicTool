@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import { FiRefreshCw } from 'react-icons/fi';
 
-const InputSubmit = ({ OnRefresh }) => {
+const InputSubmit = ({ InputRef, OnRefresh, OnSubmit }) => {
 	const [isAnswerCorrect, setAnswerStatus] = useState(null);
 	const [refreshAnimation, setRefreshAnimationStatus] = useState(false);
 
@@ -22,6 +22,7 @@ const InputSubmit = ({ OnRefresh }) => {
 				}}
 			/>
 			<input
+				ref={InputRef}
 				type='text'
 				placeholder='Answer Here'
 				className={`focus:outline-none border-2 block p-4 rounded-full w-72 mt-10 ${
@@ -41,7 +42,7 @@ const InputSubmit = ({ OnRefresh }) => {
 			</div>
 			<button
 				onClick={() => {
-					setAnswerStatus(false);
+					OnSubmit();
 				}}
 				className='mx-auto block border-2 p-4 px-12 rounded-full mt-6 border-blue-500'>
 				Submit

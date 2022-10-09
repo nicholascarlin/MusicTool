@@ -1,27 +1,46 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { GetRandomNote } from '../../utils/RandomHelperFunctions';
 import InputSubmit from '../../components/UI/InputSubmit';
+import { Interval } from '@tonaljs/tonal';
+import { VerifyIntervals } from '../../utils/IntervalVerificationFunctions';
 
 const IntervalFromNotePage = ({ IsSharp }) => {
 	const [note1, setNote1] = useState(GetRandomNote(IsSharp));
 	const [note2, setNote2] = useState(GetRandomNote(IsSharp));
+	const [answer, setAnswer] = useState(null);
+
+	const inputRef = useRef();
+
+	useEffect(() => {
+		setAnswer(Interval.distance(note1, note2));
+	}, [note1, note2]);
 
 	const OnRefresh = () => {
-		console.log('refresh', GetRandomNote(IsSharp));
+		setNote1(GetRandomNote(IsSharp));
+		setNote2(GetRandomNote(IsSharp));
+	};
+
+	const OnSubmit = () => {
+		console.log('sub');
+		VerifyIntervals(inputRef.current.value, answer);
 	};
 
 	return (
 		<div className='fc-center-full-full mt-40'>
-			<div className='text-9xl font-thin pb-4 fr-center justify-center'>
-				<div className='w-1/4'>{note1}</div>
+			<div className='text-9xl font-thin pb-4 flex items-center'>
+				<div className='basis-0 grow'>{note1}</div>
 				<span>
-					<AiOutlineArrowRight className='w-1/4 text-5xl text-gray-500 mx-8' />
+					<AiOutlineArrowRight className='flex-1 w-72 text-5xl text-gray-500' />
 				</span>
-				<div className='w-1/4'>{note2}</div>
+				<div className='basis-0 grow text-right'>{note2}</div>
 			</div>
-			<InputSubmit OnRefresh={OnRefresh} />
+			<InputSubmit
+				InputRef={inputRef}
+				OnSubmit={OnSubmit}
+				OnRefresh={OnRefresh}
+			/>
 		</div>
 	);
 };
