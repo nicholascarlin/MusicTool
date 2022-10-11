@@ -1,7 +1,8 @@
+import { AiFillCaretDown, AiOutlineClose } from 'react-icons/ai';
 import React, { useState } from 'react';
 
-import { AiOutlineClose } from 'react-icons/ai';
 import { GiHamburgerMenu } from 'react-icons/gi';
+import IntervalsFilters from '../filters/IntervalsFilters';
 
 const SideMenu = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -27,10 +28,10 @@ const SideMenu = () => {
 				/>
 			)}
 			<div
-				className={`border-l-2 h-full  marginTop-[105px] right-0 ${
+				className={`border-l-2 h-full  marginTop-[105px] right-0 fc-center pt-20 ${
 					isOpen ? 'w-[25vw]' : 'w-0'
 				} ease-in-out duration-300`}>
-				content
+				{isOpen ? <IntervalsFilters isOpen={isOpen} /> : null}
 			</div>
 		</>
 	);

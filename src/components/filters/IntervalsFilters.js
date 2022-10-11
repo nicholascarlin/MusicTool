@@ -1,14 +1,24 @@
-import { AiFillCaretLeft } from 'react-icons/ai';
-import FilterDropdown from '../UI/FilterDropdown';
-import React from 'react';
+import React, { useRef } from 'react';
+
+import { AiFillCaretDown } from 'react-icons/ai';
 
 const IntervalsFilters = () => {
+	const inputRef = useRef();
+
 	return (
-		<div className='h-full w-full overflow-y-scroll'>
-			<div className='text-center mt-4 underline underline-offset-4 fr-center-center'>
-				Note From Interval <AiFillCaretLeft />
-			</div>
-			<FilterDropdown />
+		<div
+			onClick={() => {
+				inputRef.current.focus();
+			}}
+			className='relative w-3/4 border-2 p-2 rounded-xl'>
+			<AiFillCaretDown className='absolute right-2 top-0 bottom-0 my-auto' />
+			<select
+				ref={inputRef}
+				className='appearance-none w-full'
+				placeholder='Choose Your Interval Excercise'>
+				<option>Find Interval From Two Notes</option>
+				<option>Find Note From Interval</option>
+			</select>
 		</div>
 	);
 };
