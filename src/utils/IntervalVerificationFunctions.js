@@ -3,7 +3,7 @@ export const VerifyIntervals = (resp, answer) => {
 	answer = [...answer];
 
 	resp = resp.map(function (x) {
-		if (x === 'd') {
+		if (x === 'd' || x === 'p') {
 			return x.toUpperCase();
 		} else {
 			return x;
@@ -11,7 +11,7 @@ export const VerifyIntervals = (resp, answer) => {
 	});
 
 	answer = answer.map(function (x) {
-		if (x === 'd') {
+		if (x === 'd' || x === 'p') {
 			return x.toUpperCase();
 		} else {
 			return x;

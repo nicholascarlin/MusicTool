@@ -6,9 +6,11 @@ import InputSubmit from '../../components/UI/InputSubmit';
 import { Interval } from '@tonaljs/tonal';
 import { VerifyIntervals } from '../../utils/IntervalVerificationFunctions';
 
-const IntervalFromNotePage = ({ IsSharp }) => {
+const IntervalFromNotePage = ({ ActiveNote, IsSharp }) => {
 	// TODO: Allow Note 1 to be set
-	const [note1, setNote1] = useState(GetRandomNote(IsSharp));
+	const [note1, setNote1] = useState(
+		ActiveNote === null ? GetRandomNote(IsSharp) : ActiveNote
+	);
 	const [note2, setNote2] = useState(GetRandomNote(IsSharp));
 	const [answer, setAnswer] = useState(null);
 	const [isAnswerCorrect, setAnswerCorrectStatus] = useState(null);
@@ -20,7 +22,9 @@ const IntervalFromNotePage = ({ IsSharp }) => {
 	}, [note1, note2]);
 
 	const OnRefresh = () => {
-		setNote1(GetRandomNote(IsSharp));
+		ActiveNote === null
+			? setNote1(GetRandomNote(IsSharp))
+			: setNote1(ActiveNote);
 		setNote2(GetRandomNote(IsSharp));
 		setAnswerCorrectStatus(null);
 		inputRef.current.value = '';
