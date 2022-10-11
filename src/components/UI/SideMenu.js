@@ -29,7 +29,9 @@ const SideMenu = () => {
 			<div
 				className={`border-l-2 h-full  marginTop-[105px] right-0 ${
 					isOpen ? 'w-[25vw]' : 'w-0'
-				} ease-in-out duration-300`}></div>
+				} ease-in-out duration-300`}>
+				content
+			</div>
 		</>
 	);
 };

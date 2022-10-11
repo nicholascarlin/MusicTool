@@ -15,7 +15,7 @@ const AccidentalSelector = ({ SetStatus }) => {
 				}}
 				className={`${
 					activeAccidental === 0 ? 'bg-green-500' : ''
-				} transition-all duration-300 border-2 rounded-full w-12 cursor-pointer`}
+				} transition-all duration-300 border-2 rounded-full w-[40px] h-[40px] cursor-pointer`}
 				src={SharpAccidental}
 			/>
 			<img
@@ -25,7 +25,7 @@ const AccidentalSelector = ({ SetStatus }) => {
 				}}
 				className={`${
 					activeAccidental === 1 ? 'bg-green-500' : ''
-				} transition-all duration-300 border-2 rounded-full w-12 cursor-pointer`}
+				} transition-all duration-300 border-2 rounded-full w-[40px] h-[40px] cursor-pointer`}
 				src={FlatAccidental}
 			/>
 		</div>

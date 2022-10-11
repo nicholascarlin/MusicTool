@@ -45,13 +45,14 @@ const IntervalFromNotePage = ({ ActiveNote, IsSharp }) => {
 
 	return (
 		<div className='fc-center-full-full mt-40'>
-			<div className='text-9xl font-thin pb-4 flex items-center'>
-				<div className='basis-0 grow'>{note1}</div>
-				<span>
-					<AiOutlineArrowRight className='flex-1 w-72 text-5xl text-gray-500' />
+			<div className='text-9xl font-thin pb-4 grid grid-cols-3 bg items-center'>
+				<div className='text-center col-span-1'>{note1}</div>
+				<span className='col-span-1 text-center'>
+					<AiOutlineArrowRight className='w-72 text-5xl text-gray-500 ' />
 				</span>
-				<div className='basis-0 grow text-right'>{note2}</div>
+				<div className='text-center col-span-1'>{note2}</div>
 			</div>
+
 			<InputSubmit
 				InputRef={inputRef}
 				OnSubmit={OnSubmit}

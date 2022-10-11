@@ -1,5 +1,7 @@
 //https://github.com/tonaljs/tonal
 
+// TODO: Make get note one function so dont need to pass acxtive note to all
+
 import React, { useState } from 'react';
 
 import AccidentalSelector from './components/UI/AccidentalSelector';

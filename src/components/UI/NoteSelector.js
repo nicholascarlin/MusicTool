@@ -9,7 +9,7 @@ const NoteSelector = ({ ActiveNote, SetStatus, IsSharp }) => {
 	}, [IsSharp]);
 
 	return (
-		<div className='cursor-pointer absolute top-4 left-0 right-0 text-center fr-center-center gap-2'>
+		<div className='cursor-pointer absolute top-4 text-center fr-center-center gap-2 mx-auto right-1/2 translate-x-1/2'>
 			{notes?.map((note, idx) => {
 				return (
 					<div
