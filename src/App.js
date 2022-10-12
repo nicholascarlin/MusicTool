@@ -3,6 +3,7 @@
 // TODO: Make get note one function so dont need to pass acxtive note to all
 
 import React, { useState } from 'react';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
 import AccidentalSelector from './components/UI/AccidentalSelector';
 import Header from './components/UI/Header';
@@ -22,26 +23,39 @@ function App() {
 	};
 
 	return (
-		<div className='w-screen h-screen'>
-			<Header />
-			<div className='w-full h-[calc(100vh-105px)] overflow-hidden relative fr-full'>
-				<AccidentalSelector SetStatus={setSharpStatus} />
-				<NoteSelector
-					ActiveNote={selectedNote}
-					SetStatus={setSelectedNote}
-					IsSharp={isSharp}
-				/>
-				<div className='fc-center-full-full mt-40'>
-					{activeSubTask === '0' ? (
-						<IntervalFromNotePage ActiveNote={selectedNote} IsSharp={isSharp} />
-					) : null}
-					{activeSubTask === '1' ? (
-						<NoteFromIntervalPage ActiveNote={selectedNote} IsSharp={isSharp} />
-					) : null}
+		<Router>
+			<div className='w-screen h-screen'>
+				<Header />
+				<div className='w-full h-[calc(100vh-105px)] overflow-hidden relative fr-full'>
+					<AccidentalSelector SetStatus={setSharpStatus} />
+					<NoteSelector
+						ActiveNote={selectedNote}
+						SetStatus={setSelectedNote}
+						IsSharp={isSharp}
+					/>
+					<div className='fc-center-full-full mt-40'>
+						<Routes>
+							<Route
+								path='/intervals'
+								element={
+									activeSubTask === '0' ? (
+										<IntervalFromNotePage
+											ActiveNote={selectedNote}
+											IsSharp={isSharp}
+										/>
+									) : activeSubTask === '1' ? (
+										<NoteFromIntervalPage
+											ActiveNote={selectedNote}
+											IsSharp={isSharp}
+										/>
+									) : null
+								}></Route>
+						</Routes>
+					</div>
+					<SideMenu SetActiveSubTask={test} />
 				</div>
-				<SideMenu SetActiveSubTask={test} />
 			</div>
-		</div>
+		</Router>
 	);
 }
 export default App;

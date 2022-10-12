@@ -8,27 +8,27 @@ const items = [
 	{
 		name: 'Intervals',
 		color: '#f44336',
-		href: '#',
+		href: 'intervals',
 	},
 	{
 		name: 'Fretboard',
 		color: '#e91e63',
-		href: '#',
+		href: 'fretboard',
 	},
 	{
 		name: 'Scales',
 		color: '#9c27b0',
-		href: '#',
+		href: 'scales',
 	},
 	{
 		name: 'Chords',
 		color: '#673ab7',
-		href: '#',
+		href: 'chords',
 	},
 	{
 		name: 'Ear',
 		color: '#3f51b5',
-		href: '#',
+		href: 'ear',
 	},
 ];
 
