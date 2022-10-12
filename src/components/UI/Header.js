@@ -3,6 +3,7 @@ import './Header.css';
 import { createRef, useEffect, useRef, useState } from 'react';
 
 import gsap from 'gsap';
+import { useLocation } from 'react-router-dom';
 
 const items = [
 	{
@@ -33,11 +34,14 @@ const items = [
 ];
 
 const Header = ({}) => {
+	const location = useLocation();
+
 	const $root = useRef();
 	const $indicator1 = useRef();
 	const $indicator2 = useRef();
 	const $items = useRef(items.map(createRef));
 	const [active, setActive] = useState(0);
+	const [prevActive, setPrevActive] = useState(0);
 
 	const animate = () => {
 		const menuOffset = $root.current.getBoundingClientRect();
@@ -73,6 +77,12 @@ const Header = ({}) => {
 		};
 	}, [active]);
 
+	useEffect(() => {
+		let paths = ['/intervals', '/fretboard', '/scales', '/chords', '/ear'];
+		setActive(paths.indexOf(location.pathname));
+		setPrevActive(paths.indexOf(location.pathname));
+	}, []);
+
 	return (
 		<div ref={$root} className='menu'>
 			{items.map((item, index) => (
@@ -82,6 +92,9 @@ const Header = ({}) => {
 					className={`item ${active === index ? 'active' : ''}`}
 					onMouseEnter={() => {
 						setActive(index);
+					}}
+					onMouseLeave={() => {
+						setActive(prevActive);
 					}}
 					href={item.href}>
 					{item.name}

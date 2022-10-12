@@ -35,6 +35,7 @@ function App() {
 					/>
 					<div className='fc-center-full-full mt-40'>
 						<Routes>
+							{/* INTERVAL ROUTE */}
 							<Route
 								path='/intervals'
 								element={
@@ -49,7 +50,8 @@ function App() {
 											IsSharp={isSharp}
 										/>
 									) : null
-								}></Route>
+								}
+							/>
 						</Routes>
 					</div>
 					<SideMenu SetActiveSubTask={test} />
