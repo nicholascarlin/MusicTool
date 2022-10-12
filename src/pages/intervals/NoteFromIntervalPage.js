@@ -2,15 +2,12 @@ import {
 	GetRandomInterval,
 	GetRandomNote,
 } from '../../utils/RandomHelperFunctions';
+import { Note, note } from '@tonaljs/tonal';
 import React, { useEffect, useRef, useState } from 'react';
-import {
-	VerifyIntervals,
-	VerifyNoteFromInterval,
-} from '../../utils/IntervalVerificationFunctions';
 
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import InputSubmit from '../../components/UI/InputSubmit';
-import { Note } from '@tonaljs/tonal';
+import { VerifyNoteFromInterval } from '../../utils/IntervalVerificationFunctions';
 
 const NoteFromIntervalPage = ({ ActiveNote, IsSharp }) => {
 	// TODO: Allow Note 1 to be set
@@ -24,7 +21,11 @@ const NoteFromIntervalPage = ({ ActiveNote, IsSharp }) => {
 	const inputRef = useRef();
 
 	useEffect(() => {
-		setAnswer(Note.transpose(note1, interval));
+		if (interval.includes('p')) {
+			setAnswer(Note.transpose(note1, interval.toUpperCase()));
+		} else {
+			setAnswer(Note.transpose(note1, interval));
+		}
 	}, [note1, interval]);
 
 	const OnRefresh = () => {
@@ -47,7 +48,11 @@ const NoteFromIntervalPage = ({ ActiveNote, IsSharp }) => {
 	};
 
 	const OnShowAnswer = () => {
-		inputRef.current.value = Note.transpose(note1, interval);
+		if (interval.includes('p')) {
+			inputRef.current.value = Note.transpose(note1, interval.toUpperCase());
+		} else {
+			inputRef.current.value = Note.transpose(note1, interval);
+		}
 		setAnswerCorrectStatus(null);
 	};
 
