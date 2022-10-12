@@ -1,5 +1,5 @@
 import { Note, Scale } from '@tonaljs/tonal';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { FiRefreshCw } from 'react-icons/fi';
 
@@ -9,18 +9,26 @@ const InputSubmit = ({
 	OnRefresh,
 	OnSubmit,
 	OnShowClick,
+	SetIsAnswerStatus,
 }) => {
 	const [refreshAnimation, setRefreshAnimationStatus] = useState(false);
 	const [buttonText, setButtonText] = useState('Submit');
 
 	const HandleSubClick = () => {
-		if (IsAnswerCorrect !== true) {
-			setButtonText('Next');
+		if (IsAnswerCorrect !== true || IsAnswerCorrect === null) {
+			setButtonText('Submit');
 			OnSubmit();
 		} else {
 			OnRefresh();
+			setButtonText('Submit');
 		}
 	};
+
+	useEffect(() => {
+		if (IsAnswerCorrect === true) {
+			setButtonText('Next');
+		}
+	}, [IsAnswerCorrect]);
 
 	return (
 		<div>

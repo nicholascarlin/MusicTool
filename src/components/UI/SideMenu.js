@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import IntervalsFilters from '../filters/IntervalsFilters';
 
-const SideMenu = () => {
+const SideMenu = ({ SetActiveSubTask }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	let iconStyle =
@@ -31,7 +31,12 @@ const SideMenu = () => {
 				className={`border-l-2 h-full  marginTop-[105px] right-0 fc-center pt-20 ${
 					isOpen ? 'w-[25vw]' : 'w-0'
 				} ease-in-out duration-300`}>
-				{isOpen ? <IntervalsFilters isOpen={isOpen} /> : null}
+				{isOpen ? (
+					<IntervalsFilters
+						SetActiveSubTask={SetActiveSubTask}
+						isOpen={isOpen}
+					/>
+				) : null}
 			</div>
 		</>
 	);

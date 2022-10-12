@@ -20,3 +20,10 @@ export const VerifyIntervals = (resp, answer) => {
 
 	return resp.every((item) => answer.includes(item));
 };
+
+export const VerifyNoteFromInterval = (resp, answer) => {
+	console.log('REPSP', resp);
+	console.log('ANS', answer);
+	console.log(resp === answer);
+	return resp === answer;
+};

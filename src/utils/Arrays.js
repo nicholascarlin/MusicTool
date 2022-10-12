@@ -27,3 +27,16 @@ export const FlatNotes = [
 	'Bb',
 	'B',
 ];
+
+export const CommonIntervals = [
+	'2m',
+	'2M',
+	'3m',
+	'3M',
+	'4p',
+	'5p',
+	'6m',
+	'6M',
+	'7m',
+	'7M',
+];
