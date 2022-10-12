@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
 import AccidentalSelector from './components/UI/AccidentalSelector';
+import Fretboard from './components/fretboard/Fretboard';
 import Header from './components/UI/Header';
 import IntervalFromNotePage from './pages/intervals/IntervalFromNotePage';
 import NoteFromIntervalPage from './pages/intervals/NoteFromIntervalPage';
@@ -52,6 +53,7 @@ function App() {
 									) : null
 								}
 							/>
+							<Route path='/fretboard' element={<Fretboard />} />
 						</Routes>
 					</div>
 					<SideMenu SetActiveSubTask={test} />
