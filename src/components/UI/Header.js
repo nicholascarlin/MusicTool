@@ -44,9 +44,9 @@ const Header = ({}) => {
 	const [prevActive, setPrevActive] = useState(0);
 
 	const animate = () => {
-		const menuOffset = $root.current.getBoundingClientRect();
-		const activeItem = $items.current[active].current;
-		const { width, height, top, left } = activeItem.getBoundingClientRect();
+		const menuOffset = $root?.current?.getBoundingClientRect();
+		const activeItem = $items?.current[active]?.current;
+		const { width, height, top, left } = activeItem?.getBoundingClientRect();
 
 		const settings = {
 			x: left - menuOffset.x,
