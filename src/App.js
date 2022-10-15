@@ -2,8 +2,14 @@
 
 // TODO: Make get note one function so dont need to pass acxtive note to all
 
-import React, { useState } from 'react';
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import {
+	Navigate,
+	Route,
+	BrowserRouter as Router,
+	Routes,
+	useLocation,
+} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 
 import AccidentalSelector from './components/UI/AccidentalSelector';
 import Fretboard from './components/fretboard/Fretboard';
@@ -17,16 +23,23 @@ function App() {
 	const [isSharp, setSharpStatus] = useState(true);
 	const [selectedNote, setSelectedNote] = useState(null);
 	const [activeSubTask, setActiveSubTask] = useState('0');
+	const [isLoaded, setLoadingStatus] = useState(false);
 
 	const test = (value) => {
 		console.log('CHANGED', value);
 		setActiveSubTask(value);
 	};
 
+	useEffect(() => {
+		setLoadingStatus(paths.includes(window.location.pathname));
+	}, [window.location.pathname]);
+
+	let paths = ['/intervals', '/fretboard', '/scales', '/chords', '/ear'];
+
 	return (
 		<Router>
 			<div className='w-screen h-screen'>
-				<Header />
+				{isLoaded ? <Header /> : null}
 				<div className='w-full h-[calc(100vh-105px)] overflow-hidden relative fr-full'>
 					<AccidentalSelector SetStatus={setSharpStatus} />
 					<NoteSelector
@@ -37,6 +50,7 @@ function App() {
 					<div className='fc-center-full-full mt-40'>
 						<Routes>
 							{/* INTERVAL ROUTE */}
+							<Route path='*' element={<Navigate to='/intervals' replace />} />
 							<Route
 								path='/intervals'
 								element={
