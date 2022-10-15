@@ -12,6 +12,7 @@ import {
 import React, { useEffect, useState } from 'react';
 
 import AccidentalSelector from './components/UI/AccidentalSelector';
+import ComingSoonPage from './pages/ComingSoonPage';
 import Fretboard from './components/fretboard/Fretboard';
 import Header from './components/UI/Header';
 import IntervalFromNotePage from './pages/intervals/IntervalFromNotePage';
@@ -41,12 +42,16 @@ function App() {
 			<div className='w-screen h-screen'>
 				{isLoaded ? <Header /> : null}
 				<div className='w-full h-[calc(100vh-105px)] overflow-hidden relative fr-full'>
-					<AccidentalSelector SetStatus={setSharpStatus} />
-					<NoteSelector
-						ActiveNote={selectedNote}
-						SetStatus={setSelectedNote}
-						IsSharp={isSharp}
-					/>
+					{window.location.pathname === '/intervals' ? (
+						<>
+							<AccidentalSelector SetStatus={setSharpStatus} />
+							<NoteSelector
+								ActiveNote={selectedNote}
+								SetStatus={setSelectedNote}
+								IsSharp={isSharp}
+							/>
+						</>
+					) : null}
 					<div className='fc-center-full-full mt-40'>
 						<Routes>
 							{/* INTERVAL ROUTE */}
@@ -67,7 +72,10 @@ function App() {
 									) : null
 								}
 							/>
-							<Route path='/fretboard' element={<Fretboard />} />
+							<Route path='/fretboard' element={<ComingSoonPage />} />
+							<Route path='/scales' element={<ComingSoonPage />} />
+							<Route path='/chords' element={<ComingSoonPage />} />
+							<Route path='/ear' element={<ComingSoonPage />} />
 						</Routes>
 					</div>
 					<SideMenu SetActiveSubTask={test} />
