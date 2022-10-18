@@ -1,85 +1,13 @@
 import React from 'react';
+import fretboard from '../../assets/images/fretboard.webp';
 
 const Fretboard = () => {
 	return (
-		<div className='grid grid-cols-12'>
-			<div>E</div>
-			<div>F</div>
-			<div>F#</div>
-			<div>G</div>
-			<div>G#</div>
-			<div>A</div>
-			<div>A#</div>
-			<div>B</div>
-			<div>C</div>
-			<div>C#</div>
-			<div>D</div>
-			<div>D#</div>
-
-			<div>A</div>
-			<div>A#</div>
-			<div>B</div>
-			<div>C</div>
-			<div>C#</div>
-			<div>D</div>
-			<div>D#</div>
-			<div>E</div>
-			<div>F</div>
-			<div>F#</div>
-			<div>G</div>
-			<div>G#</div>
-
-			<div>D</div>
-			<div>D#</div>
-			<div>E</div>
-			<div>F</div>
-			<div>F#</div>
-			<div>G</div>
-			<div>G#</div>
-			<div>A</div>
-			<div>A#</div>
-			<div>B</div>
-			<div>C</div>
-			<div>C#</div>
-
-			<div>G</div>
-			<div>G#</div>
-			<div>A</div>
-			<div>A#</div>
-			<div>B</div>
-			<div>C</div>
-			<div>C#</div>
-			<div>D</div>
-			<div>D#</div>
-			<div>E</div>
-			<div>F</div>
-			<div>F#</div>
-
-			<div>B</div>
-			<div>C</div>
-			<div>C#</div>
-			<div>D</div>
-			<div>D#</div>
-			<div>E</div>
-			<div>F</div>
-			<div>F#</div>
-			<div>G</div>
-			<div>G#</div>
-			<div>A</div>
-			<div>A#</div>
-
-			<div>E</div>
-			<div>F</div>
-			<div>F#</div>
-			<div>G</div>
-			<div>G#</div>
-			<div>A</div>
-			<div>A#</div>
-			<div>B</div>
-			<div>C</div>
-			<div>C#</div>
-			<div>D</div>
-			<div>D#</div>
+		<div className=''>
+			<div className='bg-red-500 relative -mt-40'>
+				<img src={fretboard} className='none' />
+				<div className='absolute top-32 left-26 bg-green-400'>1</div>
+			</div>
 		</div>
 	);
 };
