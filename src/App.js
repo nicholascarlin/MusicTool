@@ -72,7 +72,7 @@ function App() {
 									) : null
 								}
 							/>
-							<Route path='/fretboard' element={<ComingSoonPage />} />
+							<Route path='/fretboard' element={<Fretboard />} />
 							<Route path='/scales' element={<ComingSoonPage />} />
 							<Route path='/chords' element={<ComingSoonPage />} />
 							<Route path='/ear' element={<ComingSoonPage />} />
