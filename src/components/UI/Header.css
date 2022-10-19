@@ -23,7 +23,7 @@ body {
 	padding: 18px 28px;
 	cursor: pointer;
 	transition: color 0.3s ease-out;
-	text-decoration: none;
+
 	color: #111;
 	letter-spacing: 0.05em;
 	text-transform: uppercase;
@@ -39,4 +39,8 @@ body {
 	left: 0;
 	z-index: -1;
 	border-radius: 30px;
+}
+
+.not-yet-ready {
+	text-decoration: line-through;
 }

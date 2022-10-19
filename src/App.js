@@ -43,7 +43,8 @@ function App() {
 			<div className='w-screen h-screen'>
 				{isLoaded ? <Header /> : null}
 				<div className='w-full h-[calc(100vh-105px)] overflow-hidden relative fr-full'>
-					{window.location.pathname === '/intervals' || '/chords' ? (
+					{window.location.pathname === '/intervals' ||
+					window.location.pathname === '/chords' ? (
 						<>
 							<AccidentalSelector SetStatus={setSharpStatus} />
 							<NoteSelector
