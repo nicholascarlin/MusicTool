@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import InputSubmit from '../components/UI/InputSubmit';
 import { Progression } from '@tonaljs/tonal';
+import { VerifyChordProgressionFromRoman } from '../utils/ChordVerificationFunctions';
 
 const ChordsProgressionFromRoman = ({ ActiveNote, IsSharp }) => {
 	const inputRef = useRef();
@@ -30,6 +31,20 @@ const ChordsProgressionFromRoman = ({ ActiveNote, IsSharp }) => {
 		inputRef.current.value = '';
 	};
 
+	const OnSubmit = () => {
+		console.log(
+			VerifyChordProgressionFromRoman(answer, inputRef.current.value)
+		);
+	};
+
+	const OnShowAnswer = () => {
+		inputRef.current.value = Progression.fromRomanNumerals(
+			key,
+			romanProgression
+		);
+		setAnswerCorrectStatus(null);
+	};
+
 	return (
 		<div>
 			<div className='fc-center'>
@@ -40,7 +55,14 @@ const ChordsProgressionFromRoman = ({ ActiveNote, IsSharp }) => {
 					})}
 				</div>
 			</div>
-			<InputSubmit InputRef={inputRef} OnRefresh={OnRefresh} />
+			<InputSubmit
+				InputRef={inputRef}
+				OnSubmit={OnSubmit}
+				OnRefresh={OnRefresh}
+				OnShowClick={OnShowAnswer}
+				IsAnswerCorrect={isAnswerCorrect}
+				SetIsAnswerStatus={setAnswerCorrectStatus}
+			/>
 		</div>
 	);
 };
