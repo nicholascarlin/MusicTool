@@ -32,9 +32,13 @@ const ChordsProgressionFromRoman = ({ ActiveNote, IsSharp }) => {
 	};
 
 	const OnSubmit = () => {
-		console.log(
-			VerifyChordProgressionFromRoman(answer, inputRef.current.value)
-		);
+		if (inputRef.current.value !== '') {
+			setAnswerCorrectStatus(
+				VerifyChordProgressionFromRoman(answer, inputRef.current.value)
+			);
+		} else {
+			setAnswerCorrectStatus(false);
+		}
 	};
 
 	const OnShowAnswer = () => {
@@ -48,8 +52,8 @@ const ChordsProgressionFromRoman = ({ ActiveNote, IsSharp }) => {
 	return (
 		<div>
 			<div className='fc-center'>
-				<div>{key}</div>
-				<div className='fr-center gap-10'>
+				<div className='text-9xl mb-4'>{key}</div>
+				<div className='fr-center gap-10 text-5xl mb-8'>
 					{romanProgression.map((chord, idx) => {
 						return <div key={idx}>{chord}</div>;
 					})}
