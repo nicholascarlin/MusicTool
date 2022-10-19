@@ -10,26 +10,31 @@ const items = [
 		name: 'Intervals',
 		color: '#f44336',
 		href: 'intervals',
+		isReady: true,
 	},
 	{
 		name: 'Fretboard',
 		color: '#e91e63',
 		href: 'fretboard',
+		isReady: false,
 	},
 	{
 		name: 'Scales',
 		color: '#9c27b0',
 		href: 'scales',
+		isReady: false,
 	},
 	{
 		name: 'Chords',
 		color: '#673ab7',
 		href: 'chords',
+		isReady: true,
 	},
 	{
 		name: 'Ear',
 		color: '#3f51b5',
 		href: 'ear',
+		isReady: false,
 	},
 ];
 
@@ -89,7 +94,9 @@ const Header = ({}) => {
 				<a
 					key={item.name}
 					ref={$items.current[index]}
-					className={`item ${active === index ? 'active' : ''}`}
+					className={`item ${active === index ? 'active' : ''} ${
+						!item?.isReady ? 'not-yet-ready' : ''
+					}`}
 					onMouseEnter={() => {
 						setActive(index);
 					}}
