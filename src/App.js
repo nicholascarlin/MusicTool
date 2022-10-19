@@ -12,6 +12,7 @@ import {
 import React, { useEffect, useState } from 'react';
 
 import AccidentalSelector from './components/UI/AccidentalSelector';
+import ChordsProgressionFromRoman from './pages/ChordProgressionFromRoman';
 import ComingSoonPage from './pages/ComingSoonPage';
 import Fretboard from './components/fretboard/Fretboard';
 import Header from './components/UI/Header';
@@ -42,7 +43,7 @@ function App() {
 			<div className='w-screen h-screen'>
 				{isLoaded ? <Header /> : null}
 				<div className='w-full h-[calc(100vh-105px)] overflow-hidden relative fr-full'>
-					{window.location.pathname === '/intervals' ? (
+					{window.location.pathname === '/intervals' || '/chords' ? (
 						<>
 							<AccidentalSelector SetStatus={setSharpStatus} />
 							<NoteSelector
@@ -74,7 +75,15 @@ function App() {
 							/>
 							<Route path='/fretboard' element={<ComingSoonPage />} />
 							<Route path='/scales' element={<ComingSoonPage />} />
-							<Route path='/chords' element={<ComingSoonPage />} />
+							<Route
+								path='/chords'
+								element={
+									<ChordsProgressionFromRoman
+										IsSharp={isSharp}
+										ActiveNote={selectedNote}
+									/>
+								}
+							/>
 							<Route path='/ear' element={<ComingSoonPage />} />
 						</Routes>
 					</div>

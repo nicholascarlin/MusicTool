@@ -40,3 +40,13 @@ export const CommonIntervals = [
 	'7m',
 	'7M',
 ];
+
+export const MajorRomanChordProgression = [
+	'I',
+	'ii',
+	'iii',
+	'IV',
+	'V',
+	'vi',
+	'vii',
+];
