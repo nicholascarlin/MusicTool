@@ -27,8 +27,7 @@ function App() {
 	const [activeSubTask, setActiveSubTask] = useState('0');
 	const [isLoaded, setLoadingStatus] = useState(false);
 
-	const test = (value) => {
-		console.log('CHANGED', value);
+	const SetActiveSubTask = (value) => {
 		setActiveSubTask(value);
 	};
 
@@ -88,7 +87,10 @@ function App() {
 							<Route path='/ear' element={<ComingSoonPage />} />
 						</Routes>
 					</div>
-					<SideMenu SetActiveSubTask={test} />
+					{window.location.pathname === '/intervals' ||
+					window.location.pathname === '/chords' ? (
+						<SideMenu SetActiveSubTask={SetActiveSubTask} />
+					) : null}
 				</div>
 			</div>
 		</Router>

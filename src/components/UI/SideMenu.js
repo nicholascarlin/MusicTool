@@ -1,6 +1,7 @@
 import { AiFillCaretDown, AiOutlineClose } from 'react-icons/ai';
 import React, { useState } from 'react';
 
+import ChordFilters from '../filters/ChordFilters';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import IntervalsFilters from '../filters/IntervalsFilters';
 
@@ -32,10 +33,14 @@ const SideMenu = ({ SetActiveSubTask }) => {
 					isOpen ? 'w-[25vw]' : 'w-0'
 				} ease-in-out duration-300`}>
 				{isOpen ? (
-					<IntervalsFilters
-						SetActiveSubTask={SetActiveSubTask}
-						isOpen={isOpen}
-					/>
+					window.location.pathname === '/intervals' ? (
+						<IntervalsFilters
+							SetActiveSubTask={SetActiveSubTask}
+							isOpen={isOpen}
+						/>
+					) : window.location.pathname === '/chords' ? (
+						<ChordFilters SetActiveSubTask={SetActiveSubTask} isOpen={isOpen} />
+					) : null
 				) : null}
 			</div>
 		</>
