@@ -16,6 +16,7 @@ import ChordsProgressionFromRoman from './pages/ChordProgressionFromRoman';
 import ComingSoonPage from './pages/ComingSoonPage';
 import Fretboard from './components/fretboard/Fretboard';
 import Header from './components/UI/Header';
+import IdentifyIntervalPage from './pages/ear/IdentifyIntervalPage';
 import IntervalFromNotePage from './pages/intervals/IntervalFromNotePage';
 import NoteFromIntervalPage from './pages/intervals/NoteFromIntervalPage';
 import NoteSelector from './components/UI/NoteSelector';
@@ -85,7 +86,7 @@ function App() {
 									/>
 								}
 							/>
-							<Route path='/ear' element={<ComingSoonPage />} />
+							<Route path='/ear' element={<IdentifyIntervalPage />} />
 						</Routes>
 					</div>
 					<SideMenu SetActiveSubTask={test} />
