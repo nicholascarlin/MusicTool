@@ -58,10 +58,10 @@ const NoteFromIntervalPage = ({ ActiveNote, IsSharp }) => {
 
 	return (
 		<>
-			<div className='text-9xl font-thin pb-4 grid grid-cols-3 bg items-center'>
+			<div className='text-6xl md:text-9xl font-thin pb-4 grid grid-cols-3 bg items-center'>
 				<div className='text-center col-span-1'>{note1}</div>
 				<span className='col-span-1 text-center'>
-					<AiOutlineArrowRight className='w-72 text-5xl text-gray-500' />
+					<AiOutlineArrowRight className='w-32 md:w-72 text-5xl text-gray-500' />
 				</span>
 				<div className='text-center col-span-1'>
 					{interval?.split('').reverse().join('')}

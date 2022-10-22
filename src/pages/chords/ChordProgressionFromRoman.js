@@ -71,8 +71,8 @@ const ChordsProgressionFromRoman = ({
 	return (
 		<div>
 			<div className='fc-center'>
-				<div className='text-9xl mb-4'>{key}</div>
-				<div className='fr-center gap-10 text-5xl mb-8'>
+				<div className='text-5xl md:text-9xl mb-4'>{key}</div>
+				<div className='fr-center gap-10 text-3xl md:text-5xl mb-8'>
 					{romanProgression?.map((chord, idx) => {
 						return <div key={idx}>{chord}</div>;
 					})}

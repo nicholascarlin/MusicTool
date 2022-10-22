@@ -7,7 +7,7 @@ const AccidentalSelector = ({ SetStatus }) => {
 	const [activeAccidental, setActiveAccidental] = useState(0);
 
 	return (
-		<div className='fr-center absolute top-4 left-4 gap-2'>
+		<div className='fr-center mt-4 ml-4'>
 			<img
 				onClick={() => {
 					SetStatus(true);
