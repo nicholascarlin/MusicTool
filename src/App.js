@@ -45,60 +45,68 @@ function App() {
 			<div className='w-screen h-screen'>
 				{isLoaded ? <Header /> : null}
 				<div className='w-full h-[calc(100vh-105px)] overflow-hidden relative fr-full'>
-					{window.location.pathname === '/intervals' ||
-					window.location.pathname === '/chords' ? (
-						<>
-							<AccidentalSelector SetStatus={setSharpStatus} />
-							<NoteSelector
-								ActiveNote={selectedNote}
-								SetStatus={setSelectedNote}
-								IsSharp={isSharp}
-							/>
-						</>
-					) : null}
-					<div className='fc-center-full-full mt-40'>
-						<Routes>
-							{/* INTERVAL ROUTE */}
-							<Route path='*' element={<Navigate to='/intervals' replace />} />
-							<Route
-								path='/intervals'
-								element={
-									activeSubTask === '0' ? (
-										<IntervalFromNotePage
-											ActiveNote={selectedNote}
-											IsSharp={isSharp}
-										/>
-									) : activeSubTask === '1' ? (
-										<NoteFromIntervalPage
-											ActiveNote={selectedNote}
-											IsSharp={isSharp}
-										/>
-									) : null
-								}
-							/>
-							<Route path='/fretboard' element={<ComingSoonPage />} />
-							<Route path='/scales' element={<ComingSoonPage />} />
-							<Route
-								path='/chords'
-								element={
-									<ChordsProgressionFromRoman
-										IsSharp={isSharp}
-										ActiveNote={selectedNote}
-										ActiveChordProgression={chordProgression}
+					<div className='fc-center-full-full'>
+						{window.location.pathname === '/intervals' ||
+						window.location.pathname === '/chords' ? (
+							<div className='fr-center-between-full max-md:bg-red-500'>
+								<AccidentalSelector SetStatus={setSharpStatus} />
+								<NoteSelector
+									ActiveNote={selectedNote}
+									SetStatus={setSelectedNote}
+									IsSharp={isSharp}
+								/>
+								<div className='w-[calc(4.5rem)]'></div>
+							</div>
+						) : null}
+						<div className='fr-center-full'>
+							<div className='fc-center-full-full mt-40'>
+								<Routes>
+									{/* INTERVAL ROUTE */}
+									<Route
+										path='*'
+										element={<Navigate to='/intervals' replace />}
 									/>
-								}
-							/>
-							<Route path='/ear' element={<ComingSoonPage />} />
-						</Routes>
+									<Route
+										path='/intervals'
+										element={
+											activeSubTask === '0' ? (
+												<IntervalFromNotePage
+													ActiveNote={selectedNote}
+													IsSharp={isSharp}
+												/>
+											) : activeSubTask === '1' ? (
+												<NoteFromIntervalPage
+													ActiveNote={selectedNote}
+													IsSharp={isSharp}
+												/>
+											) : null
+										}
+									/>
+									<Route path='/fretboard' element={<ComingSoonPage />} />
+									<Route path='/scales' element={<ComingSoonPage />} />
+									<Route
+										path='/chords'
+										element={
+											<ChordsProgressionFromRoman
+												IsSharp={isSharp}
+												ActiveNote={selectedNote}
+												ActiveChordProgression={chordProgression}
+											/>
+										}
+									/>
+									<Route path='/ear' element={<ComingSoonPage />} />
+								</Routes>
+							</div>
+							{window.location.pathname === '/intervals' ||
+							window.location.pathname === '/chords' ? (
+								<SideMenu
+									SetActiveSubTask={SetActiveSubTask}
+									SetChordProgression={setChordProgression}
+									ChordProgression={chordProgression}
+								/>
+							) : null}
+						</div>
 					</div>
-					{window.location.pathname === '/intervals' ||
-					window.location.pathname === '/chords' ? (
-						<SideMenu
-							SetActiveSubTask={SetActiveSubTask}
-							SetChordProgression={setChordProgression}
-							ChordProgression={chordProgression}
-						/>
-					) : null}
 				</div>
 			</div>
 		</Router>

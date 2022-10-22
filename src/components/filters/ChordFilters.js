@@ -23,7 +23,7 @@ const ChordFilters = ({
 		<>
 			<div className='-mt-14 mb-8 underline text-lg'>Chord Filters</div>
 			<div className='w-full ml-6'>Select Chord Progression:</div>
-			<div className='fr-center gap-4 mt-4 w-full px-4'>
+			<div className='fc-center md:fr-center gap-4 mt-4 w-full px-4'>
 				<select
 					onChange={(e) => {
 						setInput1(e.target.value);
