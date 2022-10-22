@@ -12,7 +12,7 @@ import {
 import React, { useEffect, useState } from 'react';
 
 import AccidentalSelector from './components/UI/AccidentalSelector';
-import ChordsProgressionFromRoman from './pages/ChordProgressionFromRoman';
+import ChordsProgressionFromRoman from './pages/chords/ChordProgressionFromRoman';
 import ComingSoonPage from './pages/ComingSoonPage';
 import Fretboard from './components/fretboard/Fretboard';
 import Header from './components/UI/Header';

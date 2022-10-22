@@ -1,12 +1,12 @@
 import {
 	GetRandomChordProgression,
 	GetRandomNote,
-} from '../utils/RandomHelperFunctions';
+} from '../../utils/RandomHelperFunctions';
 import React, { useEffect, useRef, useState } from 'react';
 
-import InputSubmit from '../components/UI/InputSubmit';
+import InputSubmit from '../../components/UI/InputSubmit';
 import { Progression } from '@tonaljs/tonal';
-import { VerifyChordProgressionFromRoman } from '../utils/ChordVerificationFunctions';
+import { VerifyChordProgressionFromRoman } from '../../utils/ChordVerificationFunctions';
 
 const ChordsProgressionFromRoman = ({
 	ActiveNote,
@@ -22,7 +22,7 @@ const ChordsProgressionFromRoman = ({
 		let initialCP = GetRandomChordProgression();
 		let tempArr = initialCP;
 		for (let i = 0; i < initialCP.length; i++) {
-			if (ActiveChordProgression[i] !== 0) {
+			if (ActiveChordProgression[i] != 0) {
 				tempArr[i] = ActiveChordProgression[i];
 			}
 		}
