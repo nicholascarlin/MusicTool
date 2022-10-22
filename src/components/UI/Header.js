@@ -83,9 +83,16 @@ const Header = ({}) => {
 	}, [active]);
 
 	useEffect(() => {
+		console.log('INUE');
 		let paths = ['/intervals', '/fretboard', '/scales', '/chords', '/ear'];
-		setActive(paths.indexOf(location.pathname));
-		setPrevActive(paths.indexOf(location.pathname));
+		if (location.pathname !== '/about') {
+			setActive(paths.indexOf(location.pathname));
+			setPrevActive(paths.indexOf(location.pathname));
+		} else {
+			console.log('HIT');
+			setActive(0);
+			setPrevActive(0);
+		}
 	}, []);
 
 	return (

@@ -8,9 +8,11 @@ import {
 	BrowserRouter as Router,
 	Routes,
 	useLocation,
+	useNavigate,
 } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 
+import AboutPage from './pages/AboutPage';
 import AccidentalSelector from './components/UI/AccidentalSelector';
 import ChordsProgressionFromRoman from './pages/chords/ChordProgressionFromRoman';
 import ComingSoonPage from './pages/ComingSoonPage';
@@ -22,6 +24,8 @@ import NoteSelector from './components/UI/NoteSelector';
 import SideMenu from './components/UI/SideMenu';
 
 function App() {
+	const navigate = useNavigate();
+
 	const [isSharp, setSharpStatus] = useState(true);
 	const [selectedNote, setSelectedNote] = useState(null);
 	const [activeSubTask, setActiveSubTask] = useState('0');
@@ -38,73 +42,84 @@ function App() {
 		setLoadingStatus(paths.includes(window.location.pathname));
 	}, [window.location.pathname]);
 
-	let paths = ['/intervals', '/fretboard', '/scales', '/chords', '/ear'];
+	let paths = [
+		'/intervals',
+		'/fretboard',
+		'/scales',
+		'/chords',
+		'/ear',
+		'/about',
+	];
 
 	return (
-		<Router>
-			<div className='w-screen h-screen'>
-				{isLoaded ? <Header /> : null}
-				<div className='w-full h-[calc(100vh-105px)] overflow-hidden relative fr-full'>
-					{window.location.pathname === '/intervals' ||
-					window.location.pathname === '/chords' ? (
-						<>
-							<AccidentalSelector SetStatus={setSharpStatus} />
-							<NoteSelector
-								ActiveNote={selectedNote}
-								SetStatus={setSelectedNote}
-								IsSharp={isSharp}
-							/>
-						</>
-					) : null}
-					<div className='fc-center-full-full mt-40'>
-						<Routes>
-							{/* INTERVAL ROUTE */}
-							<Route path='*' element={<Navigate to='/intervals' replace />} />
-							<Route
-								path='/intervals'
-								element={
-									activeSubTask === '0' ? (
-										<IntervalFromNotePage
-											ActiveNote={selectedNote}
-											IsSharp={isSharp}
-										/>
-									) : activeSubTask === '1' ? (
-										<NoteFromIntervalPage
-											ActiveNote={selectedNote}
-											IsSharp={isSharp}
-										/>
-									) : null
-								}
-							/>
-							<Route path='/fretboard' element={<ComingSoonPage />} />
-							<Route path='/scales' element={<ComingSoonPage />} />
-							<Route
-								path='/chords'
-								element={
-									<ChordsProgressionFromRoman
-										IsSharp={isSharp}
-										ActiveNote={selectedNote}
-										ActiveChordProgression={chordProgression}
-									/>
-								}
-							/>
-							<Route path='/ear' element={<ComingSoonPage />} />
-						</Routes>
-					</div>
-					{window.location.pathname === '/intervals' ||
-					window.location.pathname === '/chords' ? (
-						<SideMenu
-							SetActiveSubTask={SetActiveSubTask}
-							SetChordProgression={setChordProgression}
-							ChordProgression={chordProgression}
+		<div className='w-screen h-screen'>
+			{isLoaded ? <Header /> : null}
+			<div className='w-full h-[calc(100vh-105px)] overflow-hidden relative fr-full'>
+				{window.location.pathname === '/intervals' ||
+				window.location.pathname === '/chords' ? (
+					<>
+						<AccidentalSelector SetStatus={setSharpStatus} />
+						<NoteSelector
+							ActiveNote={selectedNote}
+							SetStatus={setSelectedNote}
+							IsSharp={isSharp}
 						/>
-					) : null}
-					<div className='absolute bottom-0 left-0 bg-purple-500 hover:bg-purple-400 cursor-pointer transition-all duration-300 p-4 pl-6 pr-8 rounded-tr-xl'>
-						About
-					</div>
+					</>
+				) : null}
+				<div className='fc-center-full-full mt-40'>
+					<Routes>
+						<Route path='/about' element={<AboutPage />} />
+						{/* INTERVAL ROUTE */}
+						<Route path='*' element={<Navigate to='/intervals' replace />} />
+						<Route
+							path='/intervals'
+							element={
+								activeSubTask === '0' ? (
+									<IntervalFromNotePage
+										ActiveNote={selectedNote}
+										IsSharp={isSharp}
+									/>
+								) : activeSubTask === '1' ? (
+									<NoteFromIntervalPage
+										ActiveNote={selectedNote}
+										IsSharp={isSharp}
+									/>
+								) : null
+							}
+						/>
+						<Route path='/fretboard' element={<ComingSoonPage />} />
+						<Route path='/scales' element={<ComingSoonPage />} />
+						<Route
+							path='/chords'
+							element={
+								<ChordsProgressionFromRoman
+									IsSharp={isSharp}
+									ActiveNote={selectedNote}
+									ActiveChordProgression={chordProgression}
+								/>
+							}
+						/>
+
+						<Route path='/ear' element={<ComingSoonPage />} />
+					</Routes>
+				</div>
+				{window.location.pathname === '/intervals' ||
+				window.location.pathname === '/chords' ? (
+					<SideMenu
+						SetActiveSubTask={SetActiveSubTask}
+						SetChordProgression={setChordProgression}
+						ChordProgression={chordProgression}
+					/>
+				) : null}
+				<div
+					className='absolute bottom-0 left-0 bg-purple-500 hover:bg-purple-400 cursor-pointer transition-all duration-300 p-4 pl-6 pr-8 rounded-tr-xl'
+					onClick={() => {
+						navigate('./about', { replace: true });
+					}}>
+					About
 				</div>
 			</div>
-		</Router>
+		</div>
 	);
 }
 export default App;
