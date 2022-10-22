@@ -5,7 +5,11 @@ import ChordFilters from '../filters/ChordFilters';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import IntervalsFilters from '../filters/IntervalsFilters';
 
-const SideMenu = ({ SetActiveSubTask }) => {
+const SideMenu = ({
+	SetActiveSubTask,
+	SetChordProgression,
+	ChordProgression,
+}) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	let iconStyle =
@@ -39,7 +43,12 @@ const SideMenu = ({ SetActiveSubTask }) => {
 							isOpen={isOpen}
 						/>
 					) : window.location.pathname === '/chords' ? (
-						<ChordFilters SetActiveSubTask={SetActiveSubTask} isOpen={isOpen} />
+						<ChordFilters
+							SetActiveSubTask={SetActiveSubTask}
+							isOpen={isOpen}
+							ChordProgression={ChordProgression}
+							SetChordProgression={SetChordProgression}
+						/>
 					) : null
 				) : null}
 			</div>

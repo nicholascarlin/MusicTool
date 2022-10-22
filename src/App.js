@@ -26,6 +26,9 @@ function App() {
 	const [selectedNote, setSelectedNote] = useState(null);
 	const [activeSubTask, setActiveSubTask] = useState('0');
 	const [isLoaded, setLoadingStatus] = useState(false);
+	const [chordProgression, setChordProgression] = useState([0, 0, 0, 0]);
+
+	// Chords
 
 	const SetActiveSubTask = (value) => {
 		setActiveSubTask(value);
@@ -81,6 +84,7 @@ function App() {
 									<ChordsProgressionFromRoman
 										IsSharp={isSharp}
 										ActiveNote={selectedNote}
+										ActiveChordProgression={chordProgression}
 									/>
 								}
 							/>
@@ -89,7 +93,11 @@ function App() {
 					</div>
 					{window.location.pathname === '/intervals' ||
 					window.location.pathname === '/chords' ? (
-						<SideMenu SetActiveSubTask={SetActiveSubTask} />
+						<SideMenu
+							SetActiveSubTask={SetActiveSubTask}
+							SetChordProgression={setChordProgression}
+							ChordProgression={chordProgression}
+						/>
 					) : null}
 				</div>
 			</div>

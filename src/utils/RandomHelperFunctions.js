@@ -17,7 +17,7 @@ export const GetRandomInterval = () => {
 export const GetRandomChordProgression = (
 	arr = MajorRomanChordProgression,
 	n = 4,
-	startsOnTonic = true
+	startsOnTonic = false
 ) => {
 	let isFirst = startsOnTonic;
 	var result = new Array(n),
@@ -28,7 +28,6 @@ export const GetRandomChordProgression = (
 	while (n--) {
 		var x = isFirst ? 0 : Math.floor(Math.random() * len);
 		isFirst = false;
-		console.log(x);
 		result[n] = arr[x in taken ? taken[x] : x];
 		taken[x] = --len in taken ? taken[len] : len;
 	}

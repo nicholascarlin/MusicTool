@@ -8,25 +8,44 @@ import InputSubmit from '../components/UI/InputSubmit';
 import { Progression } from '@tonaljs/tonal';
 import { VerifyChordProgressionFromRoman } from '../utils/ChordVerificationFunctions';
 
-const ChordsProgressionFromRoman = ({ ActiveNote, IsSharp }) => {
+const ChordsProgressionFromRoman = ({
+	ActiveNote,
+	IsSharp,
+	ActiveChordProgression,
+}) => {
 	const inputRef = useRef();
+	const [romanProgression, setRomanProgression] = useState(
+		GetRandomChordProgression()
+	);
+
+	const HandleChordProgression = () => {
+		let initialCP = GetRandomChordProgression();
+		let tempArr = initialCP;
+		for (let i = 0; i < initialCP.length; i++) {
+			if (ActiveChordProgression[i] !== 0) {
+				tempArr[i] = ActiveChordProgression[i];
+			}
+		}
+		setRomanProgression(tempArr);
+		return tempArr;
+	};
 
 	const [key, setKey] = useState(
 		ActiveNote === null ? GetRandomNote(IsSharp) : ActiveNote
 	);
-	const [romanProgression, setRomanProgression] = useState(
-		GetRandomChordProgression()
-	);
+
 	const [answer, setAnswer] = useState(null);
 	const [isAnswerCorrect, setAnswerCorrectStatus] = useState(null);
 
 	useEffect(() => {
-		setAnswer(Progression.fromRomanNumerals(key, romanProgression));
+		if (romanProgression) {
+			setAnswer(Progression.fromRomanNumerals(key, romanProgression));
+		}
 	}, [key, romanProgression]);
 
 	const OnRefresh = () => {
 		ActiveNote === null ? setKey(GetRandomNote(IsSharp)) : setKey(ActiveNote);
-		setRomanProgression(GetRandomChordProgression());
+		setRomanProgression(HandleChordProgression());
 		setAnswerCorrectStatus(null);
 		inputRef.current.value = '';
 	};
@@ -54,7 +73,7 @@ const ChordsProgressionFromRoman = ({ ActiveNote, IsSharp }) => {
 			<div className='fc-center'>
 				<div className='text-9xl mb-4'>{key}</div>
 				<div className='fr-center gap-10 text-5xl mb-8'>
-					{romanProgression.map((chord, idx) => {
+					{romanProgression?.map((chord, idx) => {
 						return <div key={idx}>{chord}</div>;
 					})}
 				</div>
