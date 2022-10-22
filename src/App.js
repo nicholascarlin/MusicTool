@@ -99,6 +99,9 @@ function App() {
 							ChordProgression={chordProgression}
 						/>
 					) : null}
+					<div className='absolute bottom-0 left-0 bg-purple-500 hover:bg-purple-400 cursor-pointer transition-all duration-300 p-4 pl-6 pr-8 rounded-tr-xl'>
+						About
+					</div>
 				</div>
 			</div>
 		</Router>
