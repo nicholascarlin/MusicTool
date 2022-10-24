@@ -2,7 +2,7 @@ import React from 'react';
 
 const AboutPage = () => {
 	return (
-		<div className='fc-center-full gap-10'>
+		<div className='fc-center-full gap-10 text-center'>
 			<div>
 				Just wanted to make a quick about page. Not going to bother too much
 				with formatting for the moment here. I'd rather put my time in the
