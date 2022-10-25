@@ -16,7 +16,7 @@ const items = [
 		name: 'Fretboard',
 		color: '#e91e63',
 		href: 'fretboard',
-		isReady: false,
+		isReady: true,
 	},
 	{
 		name: 'Scales',

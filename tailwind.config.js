@@ -13,6 +13,9 @@ module.exports = {
 					'100%': { transform: 'rotate(360deg)' },
 				},
 			},
+			gridTemplateColumns: {
+				13: 'repeat(13, minmax(0, 1fr))',
+			},
 		},
 	},
 	plugins: [],

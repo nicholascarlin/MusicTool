@@ -17,6 +17,7 @@ import AccidentalSelector from './components/UI/AccidentalSelector';
 import ChordsProgressionFromRoman from './pages/chords/ChordProgressionFromRoman';
 import ComingSoonPage from './pages/ComingSoonPage';
 import Fretboard from './components/fretboard/Fretboard';
+import FretboardPage from './pages/fretboard/FretboardPage';
 import Header from './components/UI/Header';
 import IntervalFromNotePage from './pages/intervals/IntervalFromNotePage';
 import NoteFromIntervalPage from './pages/intervals/NoteFromIntervalPage';
@@ -57,14 +58,20 @@ function App() {
 			<div className='w-full h-[calc(100vh-105px)] overflow-hidden relative fr-full'>
 				<div className='fc-center-full-full'>
 					{window.location.pathname === '/intervals' ||
-					window.location.pathname === '/chords' ? (
+					window.location.pathname === '/chords' ||
+					window.location.pathname === '/fretboard' ? (
 						<div className='fr-center-between-full max-md:bg-red-500'>
 							<AccidentalSelector SetStatus={setSharpStatus} />
-							<NoteSelector
-								ActiveNote={selectedNote}
-								SetStatus={setSelectedNote}
-								IsSharp={isSharp}
-							/>
+
+							{window.location.pathname !== '/fretboard' ? (
+								<NoteSelector
+									ActiveNote={selectedNote}
+									SetStatus={setSelectedNote}
+									IsSharp={isSharp}
+								/>
+							) : (
+								<></>
+							)}
 							<div className='w-[calc(4.5rem)]'></div>
 						</div>
 					) : null}
@@ -92,7 +99,10 @@ function App() {
 										) : null
 									}
 								/>
-								<Route path='/fretboard' element={<ComingSoonPage />} />
+								<Route
+									path='/fretboard'
+									element={<FretboardPage IsSharp={isSharp} />}
+								/>
 								<Route path='/scales' element={<ComingSoonPage />} />
 								<Route
 									path='/chords'
@@ -118,11 +128,12 @@ function App() {
 						) : null}
 					</div>
 				</div>
+
 				<div
 					onClick={() => {
 						navigate('/about');
 					}}
-					className='absolute bottom-0 left-0 py-4 pl-6 pr-8 rounded-tr-xl cursor-pointer bg-purple-300 hover:bg-purple-400 transition-all duration-300'>
+					className='hidden md:block absolute bottom-0 left-0 py-4 pl-6 pr-8 rounded-tr-xl cursor-pointer border border-purple-400 hover:bg-purple-400 transition-all duration-300'>
 					About
 				</div>
 			</div>

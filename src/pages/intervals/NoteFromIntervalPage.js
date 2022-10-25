@@ -7,7 +7,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import InputSubmit from '../../components/UI/InputSubmit';
-import { VerifyNoteFromInterval } from '../../utils/IntervalVerificationFunctions';
+import { VerifyNoteFromInterval } from '../../utils/verificationFunctions/IntervalVerificationFunctions';
 
 const NoteFromIntervalPage = ({ ActiveNote, IsSharp }) => {
 	// TODO: Allow Note 1 to be set

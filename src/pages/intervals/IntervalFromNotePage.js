@@ -4,7 +4,7 @@ import { AiOutlineArrowRight } from 'react-icons/ai';
 import { GetRandomNote } from '../../utils/RandomHelperFunctions';
 import InputSubmit from '../../components/UI/InputSubmit';
 import { Interval } from '@tonaljs/tonal';
-import { VerifyIntervals } from '../../utils/IntervalVerificationFunctions';
+import { VerifyIntervals } from '../../utils/verificationFunctions/IntervalVerificationFunctions';
 
 const IntervalFromNotePage = ({ ActiveNote, IsSharp }) => {
 	// TODO: Allow Note 1 to be set

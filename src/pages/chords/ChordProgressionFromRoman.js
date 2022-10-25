@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import InputSubmit from '../../components/UI/InputSubmit';
 import { Progression } from '@tonaljs/tonal';
-import { VerifyChordProgressionFromRoman } from '../../utils/ChordVerificationFunctions';
+import { VerifyChordProgressionFromRoman } from '../../utils/verificationFunctions/ChordVerificationFunctions';
 
 const ChordsProgressionFromRoman = ({
 	ActiveNote,

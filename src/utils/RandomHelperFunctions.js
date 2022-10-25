@@ -5,6 +5,8 @@ import {
 	SharpNotes,
 } from './Arrays';
 
+import { FretboardNoteArray } from './FretboardNoteArray';
+
 export const GetRandomNote = (isSharp) => {
 	let notes = isSharp ? SharpNotes : FlatNotes;
 	return notes[Math.floor(Math.random() * notes.length)];
@@ -32,4 +34,8 @@ export const GetRandomChordProgression = (
 		taken[x] = --len in taken ? taken[len] : len;
 	}
 	return result.reverse();
+};
+
+export const GetRandomFretboardNoteIndex = () => {
+	return Math.floor(Math.random() * FretboardNoteArray.length);
 };
