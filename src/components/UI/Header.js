@@ -34,7 +34,7 @@ const items = [
 		name: 'Ear',
 		color: '#3f51b5',
 		href: 'ear',
-		isReady: false,
+		isReady: true,
 	},
 ];
 

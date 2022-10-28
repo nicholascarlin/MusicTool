@@ -16,6 +16,7 @@ import AboutPage from './pages/AboutPage';
 import AccidentalSelector from './components/UI/AccidentalSelector';
 import ChordsProgressionFromRoman from './pages/chords/ChordProgressionFromRoman';
 import ComingSoonPage from './pages/ComingSoonPage';
+import EarIntervalFromNotesPage from './pages/ear/EarIntervalFromNotesPage';
 import Fretboard from './components/fretboard/Fretboard';
 import FretboardPage from './pages/fretboard/FretboardPage';
 import Header from './components/UI/Header';
@@ -59,6 +60,7 @@ function App() {
 				<div className='fc-center-full-full'>
 					{window.location.pathname === '/intervals' ||
 					window.location.pathname === '/chords' ||
+					window.location.pathname === '/ear' ||
 					window.location.pathname === '/fretboard' ? (
 						<div className='fr-center-between-full max-md:bg-red-500'>
 							<AccidentalSelector SetStatus={setSharpStatus} />
@@ -114,7 +116,15 @@ function App() {
 										/>
 									}
 								/>
-								<Route path='/ear' element={<ComingSoonPage />} />
+								<Route
+									path='/ear'
+									element={
+										<EarIntervalFromNotesPage
+											ActiveNote={selectedNote}
+											IsSharp={isSharp}
+										/>
+									}
+								/>
 								<Route path='/about' element={<AboutPage />} />
 							</Routes>
 						</div>

@@ -6,6 +6,7 @@ import {
 } from './Arrays';
 
 import { FretboardNoteArray } from './FretboardNoteArray';
+import { note } from '@tonaljs/core';
 
 export const GetRandomNote = (isSharp) => {
 	let notes = isSharp ? SharpNotes : FlatNotes;
@@ -38,4 +39,32 @@ export const GetRandomChordProgression = (
 
 export const GetRandomFretboardNoteIndex = () => {
 	return Math.floor(Math.random() * FretboardNoteArray.length);
+};
+
+export const FormatEarNotes = (note1, note2) => {
+	var octave = Math.floor(Math.random() * (4 - 3) + 3);
+
+	if (note1.includes('b')) {
+		note1 = SharpNotes.find((val) => note(val).height === note(note1).height);
+	}
+	if (note2.includes('b')) {
+		note2 = SharpNotes.find((val) => note(val).height === note(note2).height);
+	}
+
+	note1 = note1.replace('#', '-');
+	note2 = note2.replace('#', '-');
+
+	console.log(note1.toLowerCase() + octave.toString());
+	console.log(
+		note2 <= note1
+			? note2.toLowerCase() + (octave + 1).toString()
+			: note2.toLowerCase() + octave.toString()
+	);
+
+	return [
+		note1.toLowerCase() + octave.toString(),
+		note2 <= note1
+			? note2.toLowerCase() + (octave + 1).toString()
+			: note2.toLowerCase() + octave.toString(),
+	];
 };
