@@ -8,6 +8,10 @@ import { GetRandomFretboardNoteIndex } from '../../utils/RandomHelperFunctions';
 import { VerifyFretboardNote } from '../../utils/verificationFunctions/FretboardVerificationFunctions';
 
 const FretboardPage = ({ IsSharp }) => {
+	const [score, setScore] = useState({
+		correct: 0,
+		total: 0,
+	});
 	const [notes, setNotes] = useState(null);
 	const [refreshAnimation, setRefreshAnimationStatus] = useState(false);
 	const [incorrectAnswers, setIncorrectAnswers] = useState(null);
@@ -27,6 +31,12 @@ const FretboardPage = ({ IsSharp }) => {
 		if (isCorrect) {
 			setIncorrectAnswers(null);
 			SetActiveNoteIndex();
+			setScore(() => {
+				return {
+					correct: score.correct + 1,
+					total: score.total + 1,
+				};
+			});
 		} else {
 			let tempIncorrectAnswers = [];
 			if (incorrectAnswers === null) {
@@ -38,6 +48,12 @@ const FretboardPage = ({ IsSharp }) => {
 				tempIncorrectAnswers.push(submittedNote);
 			}
 			setIncorrectAnswers(tempIncorrectAnswers);
+			setScore(() => {
+				return {
+					correct: score.correct,
+					total: score.total + 1,
+				};
+			});
 		}
 	};
 
@@ -47,6 +63,9 @@ const FretboardPage = ({ IsSharp }) => {
 
 	return (
 		<div className='w-full h-full fc-center '>
+			<div className='absolute top-3 right-3 text-gray-500 text-lg'>
+				{score.correct}/{score.total}
+			</div>
 			<Fretboard activeNoteIndex={activeNoteIndex} />
 			<FiRefreshCw
 				className={`my-10 ${
