@@ -1,6 +1,5 @@
 import {
 	FormatEarNotes,
-	GetRandomEarNotes,
 	GetRandomNote,
 } from '../../utils/RandomHelperFunctions';
 import React, { useEffect, useRef, useState } from 'react';
@@ -10,7 +9,6 @@ import { GiSpeaker } from 'react-icons/gi';
 import InputSubmit from '../../components/UI/InputSubmit';
 import { Interval } from '@tonaljs/tonal';
 import { VerifyIntervals } from '../../utils/verificationFunctions/IntervalVerificationFunctions';
-import a3 from '../../assets/guitarSounds/a4.mp3';
 
 const EarIntervalFromNotesPage = ({ ActiveNote, IsSharp }) => {
 	const [note1, setNote1] = useState(
@@ -76,8 +74,6 @@ const EarIntervalFromNotesPage = ({ ActiveNote, IsSharp }) => {
 			}, 750);
 		}, 750);
 	};
-
-	let audio = new Audio(a3);
 
 	return (
 		<>

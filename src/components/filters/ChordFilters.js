@@ -1,12 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { AiFillCaretDown } from 'react-icons/ai';
-
-const ChordFilters = ({
-	SetActiveSubTask,
-	ChordProgression,
-	SetChordProgression,
-}) => {
+const ChordFilters = ({ SetChordProgression }) => {
 	const [input1, setInput1] = useState(0);
 	const [input2, setInput2] = useState(0);
 	const [input3, setInput3] = useState(0);

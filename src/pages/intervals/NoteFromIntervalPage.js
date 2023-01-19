@@ -2,11 +2,11 @@ import {
 	GetRandomInterval,
 	GetRandomNote,
 } from '../../utils/RandomHelperFunctions';
-import { Note, note } from '@tonaljs/tonal';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import InputSubmit from '../../components/UI/InputSubmit';
+import { Note } from '@tonaljs/tonal';
 import { VerifyNoteFromInterval } from '../../utils/verificationFunctions/IntervalVerificationFunctions';
 
 const NoteFromIntervalPage = ({ ActiveNote, IsSharp }) => {
