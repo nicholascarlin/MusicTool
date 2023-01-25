@@ -5,7 +5,9 @@ import {
 	SharpNotes,
 } from './Arrays';
 
+import { ChordTypesAndIntervalsArray } from './ChordTypesAndIntervalsArray';
 import { FretboardNoteArray } from './FretboardNoteArray';
+import { Note } from '@tonaljs/tonal';
 import { note } from '@tonaljs/core';
 
 export const GetRandomNote = (isSharp) => {
@@ -67,4 +69,79 @@ export const FormatEarNotes = (note1, note2) => {
 			? note2.toLowerCase() + (octave + 1).toString()
 			: note2.toLowerCase() + octave.toString(),
 	];
+};
+
+export const GetRandomChordNotes = (
+	isSharp,
+	selectedChordTypes,
+	startingNote
+) => {
+	let tempRandomType =
+		selectedChordTypes[Math.floor(Math.random() * selectedChordTypes.length)];
+
+	let randomType = ChordTypesAndIntervalsArray.find((typeAndInt) => {
+		return typeAndInt.type === tempRandomType;
+	});
+
+	console.log('Chord Type', randomType);
+
+	let notes = [];
+
+	randomType.intervals.map((interval) => {
+		let tempNote = Note.transpose(startingNote, interval);
+		notes.push(tempNote);
+	});
+
+	return notes;
+};
+
+export const GetRandomChord = (isSharp, selectedChordTypes) => {
+	let startingNote = GetRandomNote(isSharp);
+	let notes = GetRandomChordNotes(isSharp, selectedChordTypes, startingNote);
+	var octave = Math.floor(Math.random() * (4 - 3) + 3);
+	let noteAudioArray = [];
+
+	console.log('Pre Starting Note', startingNote);
+	console.log('Notes', notes);
+
+	if (startingNote.includes('b')) {
+		startingNote = SharpNotes.find(
+			(val) => note(val).height === note(startingNote).height
+		);
+	}
+
+	startingNote = startingNote.replace('#', '-');
+
+	let startingNoteAudio = new Audio(
+		require(`../assets/guitarSounds/${startingNote.toLowerCase() + octave}.mp3`)
+	);
+
+	noteAudioArray.push(startingNoteAudio);
+
+	notes.map((currentNote) => {
+		if (currentNote.includes('b')) {
+			currentNote = SharpNotes.find(
+				(val) => note(val).height === note(currentNote).height
+			);
+		}
+
+		currentNote = currentNote.replace('#', '-');
+
+		let tempNoteAudio = null;
+
+		if (currentNote <= startingNote) {
+			currentNote = currentNote.toLowerCase() + (octave + 1).toString();
+			tempNoteAudio = new Audio(
+				require(`../assets/guitarSounds/${currentNote}.mp3`)
+			);
+		} else {
+			currentNote = currentNote.toLowerCase() + octave.toString();
+			tempNoteAudio = new Audio(
+				require(`../assets/guitarSounds/${currentNote}.mp3`)
+			);
+		}
+		noteAudioArray.push(tempNoteAudio);
+	});
+
+	console.log('noteAudioArray', noteAudioArray);
 };

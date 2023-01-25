@@ -2,22 +2,15 @@
 
 // TODO: Make get note one function so dont need to pass acxtive note to all
 
-import {
-	Navigate,
-	Route,
-	BrowserRouter as Router,
-	Routes,
-	useLocation,
-	useNavigate,
-} from 'react-router-dom';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 
 import AboutPage from './pages/AboutPage';
 import AccidentalSelector from './components/UI/AccidentalSelector';
+import ChordTypeIdentification from './pages/ear/ChordTypeIdentification';
 import ChordsProgressionFromRoman from './pages/chords/ChordProgressionFromRoman';
 import ComingSoonPage from './pages/ComingSoonPage';
 import EarIntervalFromNotesPage from './pages/ear/EarIntervalFromNotesPage';
-import Fretboard from './components/fretboard/Fretboard';
 import FretboardPage from './pages/fretboard/FretboardPage';
 import Header from './components/UI/Header';
 import IntervalFromNotePage from './pages/intervals/IntervalFromNotePage';
@@ -119,17 +112,22 @@ function App() {
 								<Route
 									path='/ear'
 									element={
-										<EarIntervalFromNotesPage
-											ActiveNote={selectedNote}
-											IsSharp={isSharp}
-										/>
+										activeSubTask === '0' ? (
+											<EarIntervalFromNotesPage
+												ActiveNote={selectedNote}
+												IsSharp={isSharp}
+											/>
+										) : activeSubTask === '1' ? (
+											<ChordTypeIdentification IsSharp={isSharp} />
+										) : null
 									}
 								/>
 								<Route path='/about' element={<AboutPage />} />
 							</Routes>
 						</div>
 						{window.location.pathname === '/intervals' ||
-						window.location.pathname === '/chords' ? (
+						window.location.pathname === '/chords' ||
+						window.location.pathname === '/ear' ? (
 							<SideMenu
 								SetActiveSubTask={SetActiveSubTask}
 								SetChordProgression={setChordProgression}
