@@ -13,6 +13,8 @@ const ChordsProgressionFromRoman = ({
 	IsSharp,
 	ActiveChordProgression,
 }) => {
+	// TODO: Needs to be CSV and doesn't account for Major and Minor
+
 	const inputRef = useRef();
 	const [romanProgression, setRomanProgression] = useState(
 		GetRandomChordProgression()
