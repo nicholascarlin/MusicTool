@@ -10,7 +10,8 @@ import { Note } from '@tonaljs/tonal';
 import { VerifyNoteFromInterval } from '../../utils/verificationFunctions/IntervalVerificationFunctions';
 
 const NoteFromIntervalPage = ({ ActiveNote, IsSharp }) => {
-	// TODO: Allow Note 1 to be set
+	// TODO: Let # and b be graded equivalent
+
 	const [note1, setNote1] = useState(
 		ActiveNote === null ? GetRandomNote(IsSharp) : ActiveNote
 	);
