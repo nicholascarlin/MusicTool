@@ -1,8 +1,5 @@
-import FretboardNote from '../components/fretboard/FretboardNote';
-
 export const FretboardNoteArray = [
 	// High E string
-
 	{
 		string: 6,
 		note: 'E',
