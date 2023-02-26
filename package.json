@@ -10,6 +10,7 @@
 		"@tonaljs/tonal": "^4.6.5",
 		"gsap": "^3.11.3",
 		"mod-loop": "^0.0.2",
+		"random-js": "^2.1.0",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-icons": "^4.4.0",
