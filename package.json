@@ -8,6 +8,7 @@
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^13.5.0",
 		"@tonaljs/tonal": "^4.6.5",
+		"capitalize": "^2.0.4",
 		"gsap": "^3.11.3",
 		"mod-loop": "^0.0.2",
 		"random-js": "^2.1.0",
