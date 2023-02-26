@@ -357,7 +357,7 @@ module.exports.isTraversable = function (scale) {
 module.exports.isScale = function (scale) {
 	return scale instanceof Scale || scale instanceof TraversableScale;
 };
-module.exports.createScale = function (key, scaleName) {
+export const createScale = function (key, scaleName) {
 	return new Scale(key, scaleName);
 };
 module.exports.Scale = Scale;
