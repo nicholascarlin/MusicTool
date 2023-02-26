@@ -349,7 +349,6 @@ _.each(['nearest', 'contains', 'hasInterval', 'descending'], function (method) {
 module.exports.scales = scales;
 module.exports.precedence = precedence;
 module.exports.TraversableScale = TraversableScale;
-module.exports.Scale = Scale;
 
 module.exports.isTraversable = function (scale) {
 	return scale instanceof TraversableScale;
@@ -358,6 +357,7 @@ module.exports.isTraversable = function (scale) {
 module.exports.isScale = function (scale) {
 	return scale instanceof Scale || scale instanceof TraversableScale;
 };
-module.exports.create = function (key, scaleName) {
+module.exports.createScale = function (key, scaleName) {
 	return new Scale(key, scaleName);
 };
+module.exports.Scale = Scale;

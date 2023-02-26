@@ -7,7 +7,7 @@ import {
 } from './Arrays';
 
 import { FretboardNoteArray } from './FretboardNoteArray';
-import Scale from './objects/scale';
+import { createScale } from './objects/scale';
 
 export const GetRandomNote = (isSharp) => {
 	let notes = isSharp ? SharpNotes : FlatNotes;
@@ -59,7 +59,7 @@ export const FormatEarNotes = (note1, note2) => {
 
 export const GetRandomScale = (selectedNote) => {
 	let note = selectedNote ? selectedNote : GetRandomNote();
-	let scale = new Scale(note, 'Major');
+	let scale = createScale(note, 'Major');
 	return scale;
 };
 
