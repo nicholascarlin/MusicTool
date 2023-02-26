@@ -71,8 +71,8 @@ const EarIntervalFromNotesPage = ({ ActiveNote, IsSharp }) => {
 			note2Audio.play();
 			setTimeout(function () {
 				setPlayingStatus(false);
-			}, 750);
-		}, 750);
+			}, 1000);
+		}, 1000);
 	};
 
 	return (

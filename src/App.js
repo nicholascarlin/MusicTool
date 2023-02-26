@@ -1,4 +1,5 @@
 //https://github.com/tonaljs/tonal
+// https://github.com/jsrmath/sharp11 - NEED TO INSTALL, Good for chord ear recognition, scale degree
 
 // TODO: Make get note one function so dont need to pass acxtive note to all
 
@@ -17,6 +18,7 @@ import AccidentalSelector from './components/UI/AccidentalSelector';
 import ChordsProgressionFromRoman from './pages/chords/ChordProgressionFromRoman';
 import ComingSoonPage from './pages/ComingSoonPage';
 import EarIntervalFromNotesPage from './pages/ear/EarIntervalFromNotesPage';
+import EarScaleDegreeFromNote from './pages/ear/EarScaleDegreeFromNote';
 import Fretboard from './components/fretboard/Fretboard';
 import FretboardPage from './pages/fretboard/FretboardPage';
 import Header from './components/UI/Header';
@@ -56,6 +58,7 @@ function App() {
 	return (
 		<div className='w-screen h-screen'>
 			{isLoaded ? <Header /> : null}
+			{/* TODO: MEdia Query and just load Mobile HEader component, gonna be so much easier */}
 			<div className='w-full h-[calc(100vh-105px)] overflow-hidden relative fr-full'>
 				<div className='fc-center-full-full'>
 					{window.location.pathname === '/intervals' ||
@@ -119,17 +122,25 @@ function App() {
 								<Route
 									path='/ear'
 									element={
-										<EarIntervalFromNotesPage
-											ActiveNote={selectedNote}
-											IsSharp={isSharp}
-										/>
+										activeSubTask === '0' ? (
+											<EarIntervalFromNotesPage
+												ActiveNote={selectedNote}
+												IsSharp={isSharp}
+											/>
+										) : activeSubTask === '1' ? (
+											<EarScaleDegreeFromNote
+												ActiveNote={selectedNote}
+												IsSharp={isSharp}
+											/>
+										) : null
 									}
 								/>
 								<Route path='/about' element={<AboutPage />} />
 							</Routes>
 						</div>
 						{window.location.pathname === '/intervals' ||
-						window.location.pathname === '/chords' ? (
+						window.location.pathname === '/chords' ||
+						window.location.pathname === '/ear' ? (
 							<SideMenu
 								SetActiveSubTask={SetActiveSubTask}
 								SetChordProgression={setChordProgression}

@@ -1,12 +1,13 @@
 import {
 	CommonIntervals,
 	FlatNotes,
+	GetMusicalAlphabetIndex,
 	MajorRomanChordProgression,
 	SharpNotes,
 } from './Arrays';
 
 import { FretboardNoteArray } from './FretboardNoteArray';
-import { note } from '@tonaljs/core';
+import { Scale } from './objects/scale';
 
 export const GetRandomNote = (isSharp) => {
 	let notes = isSharp ? SharpNotes : FlatNotes;
@@ -44,27 +45,47 @@ export const GetRandomFretboardNoteIndex = () => {
 export const FormatEarNotes = (note1, note2) => {
 	var octave = Math.floor(Math.random() * (4 - 3) + 3);
 
-	if (note1.includes('b')) {
-		note1 = SharpNotes.find((val) => note(val).height === note(note1).height);
-	}
-	if (note2.includes('b')) {
-		note2 = SharpNotes.find((val) => note(val).height === note(note2).height);
-	}
+	let isLower =
+		GetMusicalAlphabetIndex(note1) >= GetMusicalAlphabetIndex(note2);
+
+	console.log('LOWER', isLower, note1, note2);
 
 	note1 = note1.replace('#', '-');
 	note2 = note2.replace('#', '-');
 
-	console.log(note1.toLowerCase() + octave.toString());
+	console.log(note1 + octave.toString());
 	console.log(
-		note2 <= note1
-			? note2.toLowerCase() + (octave + 1).toString()
-			: note2.toLowerCase() + octave.toString()
+		isLower ? note2 + (octave + 1).toString() : note2 + octave.toString()
 	);
 
 	return [
-		note1.toLowerCase() + octave.toString(),
-		note2 <= note1
-			? note2.toLowerCase() + (octave + 1).toString()
-			: note2.toLowerCase() + octave.toString(),
+		note1 + octave.toString(),
+		isLower ? note2 + (octave + 1).toString() : note2 + octave.toString(),
+	];
+};
+
+export const GetRandomScale = (selectedNote) => {
+	let note = selectedNote ? selectedNote : GetRandomNote();
+	let scale = new Scale(note, 'Major');
+	return scale;
+};
+
+/**
+ *
+ * @param {string} startingNote
+ * @returns {Array} Array [Note1, Note2, degree]
+ */
+export const GetTwoRandomScaleNotesAndDegree = (startingNote, isSharp) => {
+	let firstNote = startingNote ? startingNote : GetRandomNote(isSharp);
+	let scale = GetRandomScale(firstNote);
+
+	console.log('SCALE', scale);
+
+	let randDegree = Math.floor(Math.random() * scale.scale.length);
+
+	return [
+		scale.scale[0],
+		scale.scale[randDegree],
+		randDegree === 0 ? 8 : randDegree + 1,
 	];
 };

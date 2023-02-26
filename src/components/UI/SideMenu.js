@@ -2,6 +2,7 @@ import { AiFillCaretDown, AiOutlineClose } from 'react-icons/ai';
 import React, { useState } from 'react';
 
 import ChordFilters from '../filters/ChordFilters';
+import EarFilters from '../filters/EarFilters';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import IntervalsFilters from '../filters/IntervalsFilters';
 
@@ -49,6 +50,8 @@ const SideMenu = ({
 							ChordProgression={ChordProgression}
 							SetChordProgression={SetChordProgression}
 						/>
+					) : window.location.pathname === '/ear' ? (
+						<EarFilters SetActiveSubTask={SetActiveSubTask} />
 					) : null
 				) : null}
 			</div>
