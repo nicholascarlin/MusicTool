@@ -72,8 +72,6 @@ export const GetTwoRandomScaleNotesAndDegree = (startingNote, isSharp) => {
 	let firstNote = startingNote ? startingNote : GetRandomNote(isSharp);
 	let scale = GetRandomScale(firstNote);
 
-	console.log('SCALE', scale);
-
 	let randDegree = Math.floor(Math.random() * scale.scale.length);
 
 	return [
