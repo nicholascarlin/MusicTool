@@ -7,7 +7,7 @@ var _ = require('underscore');
 var mod = require('mod-loop');
 
 // Supported scales and interval arrays
-var scales = {
+export var scales = {
 	major: ['2', '3', '4', '5', '6', '7'],
 	natural_minor: ['2', 'm3', '4', '5', 'm6', 'm7'],
 	harmonic_minor: ['2', 'm3', '4', '5', 'm6', '7'],
@@ -38,7 +38,7 @@ var scales = {
 };
 
 // Precedence of scales used in chord-scale mapping
-var precedence = [
+export var precedence = [
 	'major',
 	'dorian',
 	'natural_minor',
@@ -123,7 +123,7 @@ var findIndex = function (scale, note) {
 	});
 };
 
-class Scale {
+export class Scale {
 	constructor(key, scaleName) {
 		var intervals;
 		var scaleId;
@@ -267,77 +267,73 @@ class Scale {
 
 Scale.prototype.transposeDown = _.partial(Scale.prototype.transpose, _, true);
 
-var TraversableScale = function (scale, index, octave) {
-	// Initialize scale in proper octave
-	this.scale = new Scale(scale.root.name + octave, scale.name);
+export class TraversableScale {
+	constructor(scale, index, octave) {
+		// Initialize scale in proper octave
+		this.scale = new Scale(scale.root.name + octave, scale.name);
 
-	this.index = index;
-	this.octave = octave;
-	this.length = scale.scale.length;
+		this.index = index;
+		this.octave = octave;
+		this.length = scale.scale.length;
 
-	this.name = this.scale.name;
-	this.id = this.scale.id;
-	this.fullName = this.scale.fullName;
+		this.name = this.scale.name;
+		this.id = this.scale.id;
+		this.fullName = this.scale.fullName;
 
-	this.current = function () {
-		return this.scale.scale[this.index];
-	};
+		this.current = function () {
+			return this.scale.scale[this.index];
+		};
 
-	this.toString = function () {
-		var regex = new RegExp('(' + this.current() + ')');
-		return this.scale.toString().replace(regex, '[$1]');
-	};
-};
+		this.toString = function () {
+			var regex = new RegExp('(' + this.current() + ')');
+			return this.scale.toString().replace(regex, '[$1]');
+		};
+	}
+	clean() {
+		var scale = this.scale.traverse(this.current().clean());
+		scale.scale = scale.scale.clean();
 
-TraversableScale.prototype.clean = function () {
-	var scale = this.scale.traverse(this.current().clean());
-	scale.scale = scale.scale.clean();
+		return scale;
+	}
+	transpose(int, down) {
+		var scale = this.scale.transpose(int, down);
+		var current = this.current().transpose(int, down);
 
-	return scale;
-};
+		return scale.traverse(current);
+	}
+	// Move the current index by a number of steps, positive or negative
+	shift(numSteps) {
+		var scale = this.scale;
+		var index = this.index + numSteps;
 
-TraversableScale.prototype.transpose = function (int, down) {
-	var scale = this.scale.transpose(int, down);
-	var current = this.current().transpose(int, down);
+		var newIndex = mod(index, this.length);
+		var octave = this.octave + Math.floor(index / this.length);
 
-	return scale.traverse(current);
-};
+		return new TraversableScale(scale, newIndex, octave);
+	}
+	// Move the current index by a given interval
+	shiftInterval(int, down) {
+		var current = this.current().transpose(int, down);
+
+		return this.withCurrent(current);
+	}
+	// Move the current index to a random spot
+	random() {
+		var index = Math.floor(Math.random() * this.length);
+		var current = this.scale.scale[index];
+
+		return this.withCurrent(current);
+	}
+	withCurrent(n) {
+		return this.scale.traverse(n);
+	}
+}
 
 TraversableScale.prototype.transposeDown = _.partial(
 	TraversableScale.prototype.transpose,
 	_,
 	true
 );
-
-// Move the current index by a number of steps, positive or negative
-TraversableScale.prototype.shift = function (numSteps) {
-	var scale = this.scale;
-	var index = this.index + numSteps;
-
-	var newIndex = mod(index, this.length);
-	var octave = this.octave + Math.floor(index / this.length);
-
-	return new TraversableScale(scale, newIndex, octave);
-};
-
-// Move the current index by a given interval
-TraversableScale.prototype.shiftInterval = function (int, down) {
-	var current = this.current().transpose(int, down);
-
-	return this.withCurrent(current);
-};
-
-// Move the current index to a random spot
-TraversableScale.prototype.random = function () {
-	var index = Math.floor(Math.random() * this.length);
-	var current = this.scale.scale[index];
-
-	return this.withCurrent(current);
-};
-
-TraversableScale.prototype.withCurrent = function (n) {
-	return this.scale.traverse(n);
-};
 
 // Create methods for TraversableScale that are equivalent to calling method on this.scale
 _.each(['nearest', 'contains', 'hasInterval', 'descending'], function (method) {
@@ -346,18 +342,14 @@ _.each(['nearest', 'contains', 'hasInterval', 'descending'], function (method) {
 	};
 });
 
-module.exports.scales = scales;
-module.exports.precedence = precedence;
-module.exports.TraversableScale = TraversableScale;
-
-module.exports.isTraversable = function (scale) {
+export const isTraversable = (scale) => {
 	return scale instanceof TraversableScale;
 };
 
-module.exports.isScale = function (scale) {
+export const isScale = (scale) => {
 	return scale instanceof Scale || scale instanceof TraversableScale;
 };
-export const createScale = function (key, scaleName) {
+
+export const createScale = (key, scaleName) => {
 	return new Scale(key, scaleName);
 };
-module.exports.Scale = Scale;
