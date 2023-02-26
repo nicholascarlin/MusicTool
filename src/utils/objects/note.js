@@ -83,7 +83,6 @@ var parseName = function (name) {
 
 // Increase the letter of a note by a given interval
 var addNumber = function (note, number) {
-	var letter = note.letter;
 	var index = scale.indexOf(note.letter);
 	var newIndex = mod(index + number - 1, scale.length);
 
@@ -214,7 +213,7 @@ Note.prototype.sharp = function () {
 			} else {
 				return new Note(addNumber(this, 2) + '#', octave);
 			}
-			break;
+
 		case 'bb':
 			return new Note(this.letter + 'b', octave);
 		default:
@@ -241,7 +240,7 @@ Note.prototype.flat = function () {
 			} else {
 				return new Note(addNumber(this, 7) + 'b', octave);
 			}
-			break;
+
 		case '##':
 			return new Note(this.letter + '#', octave);
 		default:

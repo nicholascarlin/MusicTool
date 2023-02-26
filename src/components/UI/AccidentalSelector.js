@@ -17,6 +17,7 @@ const AccidentalSelector = ({ SetStatus }) => {
 					activeAccidental === 0 ? 'bg-green-500' : ''
 				} transition-all duration-300 border-2 rounded-full w-[40px] h-[40px] cursor-pointer`}
 				src={SharpAccidental}
+				alt='Sharp Accidental'
 			/>
 			<img
 				onClick={() => {
@@ -27,6 +28,7 @@ const AccidentalSelector = ({ SetStatus }) => {
 					activeAccidental === 1 ? 'bg-green-500' : ''
 				} transition-all duration-300 border-2 rounded-full w-[40px] h-[40px] cursor-pointer`}
 				src={FlatAccidental}
+				alt='Flat Accidental'
 			/>
 		</div>
 	);

@@ -1,6 +1,6 @@
-import { AiFillCaretDown, AiOutlineClose } from 'react-icons/ai';
 import React, { useState } from 'react';
 
+import { AiOutlineClose } from 'react-icons/ai';
 import ChordFilters from '../filters/ChordFilters';
 import EarFilters from '../filters/EarFilters';
 import { GiHamburgerMenu } from 'react-icons/gi';

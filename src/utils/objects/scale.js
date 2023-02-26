@@ -108,6 +108,9 @@ var parseName = function (scaleName) {
 		case 'locrian_#2':
 			scaleId = 'half_diminished';
 			break;
+		default:
+			scaleId = 'major';
+			break;
 	}
 
 	return scaleId;

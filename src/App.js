@@ -3,14 +3,7 @@
 
 // TODO: Make get note one function so dont need to pass acxtive note to all
 
-import {
-	Navigate,
-	Route,
-	BrowserRouter as Router,
-	Routes,
-	useLocation,
-	useNavigate,
-} from 'react-router-dom';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 
 import AboutPage from './pages/AboutPage';
@@ -19,7 +12,6 @@ import ChordsProgressionFromRoman from './pages/chords/ChordProgressionFromRoman
 import ComingSoonPage from './pages/ComingSoonPage';
 import EarIntervalFromNotesPage from './pages/ear/EarIntervalFromNotesPage';
 import EarScaleDegreeFromNote from './pages/ear/EarScaleDegreeFromNote';
-import Fretboard from './components/fretboard/Fretboard';
 import FretboardPage from './pages/fretboard/FretboardPage';
 import Header from './components/UI/Header';
 import IntervalFromNotePage from './pages/intervals/IntervalFromNotePage';
