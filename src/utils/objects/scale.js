@@ -120,7 +120,7 @@ var findIndex = function (scale, note) {
 	});
 };
 
-class Scale {
+export class Scale {
 	constructor(key, scaleName) {
 		var intervals;
 		var scaleId;
