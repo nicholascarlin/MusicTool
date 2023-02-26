@@ -4,7 +4,6 @@ var interval = require('./interval');
 
 var mod = require('mod-loop');
 var _ = require('underscore');
-var random = require('random-js')();
 
 var scale = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
 
@@ -506,8 +505,12 @@ module.exports.random = function (range) {
 	}
 
 	do {
-		note = new Note('C').shift(random.integer(0, 11)).clean();
-		note = note.inOctave(random.integer(lower.octave, upper.octave));
+		note = new Note('C').shift(Math.floor(Math.random() * 12)).clean();
+		note = note.inOctave(
+			Math.floor(
+				Math.random() * (upper.octave - lower.octave + 1) + lower.octave
+			)
+		);
 	} while (!note.inRange([lower, upper]));
 
 	return note;
