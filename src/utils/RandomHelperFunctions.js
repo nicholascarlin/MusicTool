@@ -48,15 +48,8 @@ export const FormatEarNotes = (note1, note2) => {
 	let isLower =
 		GetMusicalAlphabetIndex(note1) >= GetMusicalAlphabetIndex(note2);
 
-	console.log('LOWER', isLower, note1, note2);
-
 	note1 = note1.replace('#', '-');
 	note2 = note2.replace('#', '-');
-
-	console.log(note1 + octave.toString());
-	console.log(
-		isLower ? note2 + (octave + 1).toString() : note2 + octave.toString()
-	);
 
 	return [
 		note1 + octave.toString(),
