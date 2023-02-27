@@ -21,6 +21,7 @@ const EarFilters = ({ SetActiveSubTask }) => {
 					placeholder='Choose Your Interval Excercise'>
 					<option value={0}>Find Interval From Two Notes</option>
 					<option value={1}>Find Scale Degree From Two Notes</option>
+					<option value={2}>Determine Chord Type</option>
 				</select>
 			</div>
 		</>

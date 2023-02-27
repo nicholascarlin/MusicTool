@@ -62,7 +62,7 @@ const FretboardPage = ({ IsSharp }) => {
 	}, [IsSharp]);
 
 	return (
-		<div className='w-full h-full fc-center '>
+		<div className='w-full h-full fc-center'>
 			<div className='absolute top-3 right-3 text-gray-500 text-lg'>
 				{score.correct}/{score.total}
 			</div>

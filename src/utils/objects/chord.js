@@ -70,15 +70,15 @@ var getIntervals = function (chord) {
 	intervals[5] = 'P';
 
 	// Chords with m3
-	if (/^(m|dim|ø)/.test(chord)) {
+	if (/^(m|dim|ø|Dim)/.test(chord)) {
 		intervals[3] = 'm';
 	}
 	// Chords with dim5
-	if (/(dim|ø|[-b]5)/.test(chord)) {
+	if (/(dim|ø|[-b]5|Dim)/.test(chord)) {
 		intervals[5] = 'dim';
 	}
 	// Chords with aug5
-	if (/^(aug|\+)/.test(chord) || /[+#]5/.test(chord)) {
+	if (/^(aug|\+|Aug)/.test(chord) || /[+#]5/.test(chord)) {
 		intervals[5] = 'aug';
 	}
 	// Chord with no 5th
@@ -475,106 +475,93 @@ var setOctave = function (obj, octave) {
 	});
 };
 
-var Chord = function (chord, octave) {
-	var intervals;
+class Chord {
+	constructor(chord, octave) {
+		var intervals;
 
-	this.name = chord;
+		this.name = chord;
 
-	chord = parseChordSymbol(chord);
+		chord = parseChordSymbol(chord);
 
-	this.root = chord.root;
-	this.symbol = chord.symbol;
-	this.formattedSymbol = handleAliases(chord.symbol);
-	this.bass = chord.bass;
+		this.root = chord.root;
+		this.symbol = chord.symbol;
+		this.formattedSymbol = handleAliases(chord.symbol);
+		this.bass = chord.bass;
 
-	intervals = getIntervals(this.formattedSymbol);
-	this.chord = makeChord(this.root, this.bass, intervals);
+		intervals = getIntervals(this.formattedSymbol);
+		this.chord = makeChord(this.root, this.bass, intervals);
 
-	this.octave = null;
-	if (octave) {
-		this.octave = octave;
-		setOctave(this, octave);
+		this.octave = null;
+		if (octave) {
+			this.octave = octave;
+			setOctave(this, octave);
+		}
+
+		this.toString = function () {
+			return this.chord.join(' ');
+		};
 	}
+	// Return a list of scales that match chord, in order of precedence
+	scales() {
+		var root = note.create(this.root.name); // Remove octave number
+		var chord = this.chord;
 
-	this.toString = function () {
-		return this.chord.join(' ');
-	};
-};
+		var scales = _.map(scale.precedence, function (name) {
+			return scale.create(root, name);
+		});
 
-var createChord = function (chord, octave) {
+		scales = _.filter(scales, function (scale) {
+			return _.every(chord, scale.contains.bind(scale));
+		});
+
+		return optimizeScalePrecedence(scales, this);
+	}
+	// Return highest precedence scale that matches chord
+	scale() {
+		return this.scales()[0];
+	}
+	// Return a list of scale names that match chord, in order of precedence
+	scaleNames() {
+		return _.pluck(this.scales(), 'name');
+	}
+	transpose(int, down) {
+		var root = this.root.transpose(int, down);
+		var bass = this.bass ? this.bass.transpose(int, down) : null;
+		return makeChordObject(root, this.symbol, bass);
+	}
+	clean() {
+		var root = this.root.clean();
+		var bass = this.bass ? this.bass.clean() : null;
+		var chord = makeChordObject(root, this.symbol, bass);
+
+		chord.chord = _.map(chord.chord, function (note) {
+			return note.clean();
+		});
+
+		return chord;
+	}
+	// Return true if a given note is in a chord, matching octave numbers if applicable
+	contains(n) {
+		return note.create(n).containedIn(this.chord);
+	}
+	// Return true if a given interval is in a chord, matching octave numbers if applicable
+	hasInterval(int) {
+		return note.create(this.root).transpose(int).containedIn(this.chord);
+	}
+	inOctave(octave) {
+		return new Chord(this.name, octave);
+	}
+}
+
+export const createChord = (chord, octave) => {
 	if (chord instanceof Chord)
 		return new Chord(chord.name, chord.octave || octave);
 
 	return new Chord(chord, octave);
 };
 
-// Return a list of scales that match chord, in order of precedence
-Chord.prototype.scales = function () {
-	var root = note.create(this.root.name); // Remove octave number
-	var chord = this.chord;
-
-	var scales = _.map(scale.precedence, function (name) {
-		return scale.create(root, name);
-	});
-
-	scales = _.filter(scales, function (scale) {
-		return _.every(chord, scale.contains.bind(scale));
-	});
-
-	return optimizeScalePrecedence(scales, this);
-};
-
-// Return highest precedence scale that matches chord
-Chord.prototype.scale = function () {
-	return this.scales()[0];
-};
-
-// Return a list of scale names that match chord, in order of precedence
-Chord.prototype.scaleNames = function () {
-	return _.pluck(this.scales(), 'name');
-};
-
-Chord.prototype.transpose = function (int, down) {
-	var root = this.root.transpose(int, down);
-	var bass = this.bass ? this.bass.transpose(int, down) : null;
-	return makeChordObject(root, this.symbol, bass);
-};
-
 Chord.prototype.transposeDown = _.partial(Chord.prototype.transpose, _, true);
 
-Chord.prototype.clean = function () {
-	var root = this.root.clean();
-	var bass = this.bass ? this.bass.clean() : null;
-	var chord = makeChordObject(root, this.symbol, bass);
-
-	chord.chord = _.map(chord.chord, function (note) {
-		return note.clean();
-	});
-
-	return chord;
-};
-
-// Return true if a given note is in a chord, matching octave numbers if applicable
-Chord.prototype.contains = function (n) {
-	return note.create(n).containedIn(this.chord);
-};
-
-// Return true if a given interval is in a chord, matching octave numbers if applicable
-Chord.prototype.hasInterval = function (int) {
-	return note.create(this.root).transpose(int).containedIn(this.chord);
-};
-
-Chord.prototype.inOctave = function (octave) {
-	return new Chord(this.name, octave);
-};
-
-module.exports.isChord = function (chord) {
+export const isChord = (chord) => {
 	return chord instanceof Chord;
 };
-
-module.exports.identify = identify;
-module.exports.identifyArray = identifyArray;
-module.exports.getPossibleChordNames = getPossibleChordNames;
-module.exports.getPossibleChordNamesFromArray = getPossibleChordNamesFromArray;
-module.exports.create = createChord;
-module.exports.Chord = Chord;

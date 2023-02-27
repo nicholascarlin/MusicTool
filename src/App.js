@@ -10,6 +10,7 @@ import AboutPage from './pages/AboutPage';
 import AccidentalSelector from './components/UI/AccidentalSelector';
 import ChordsProgressionFromRoman from './pages/chords/ChordProgressionFromRoman';
 import ComingSoonPage from './pages/ComingSoonPage';
+import EarChordTypeIdentification from './pages/ear/EarChordTypeIdentification';
 import EarIntervalFromNotesPage from './pages/ear/EarIntervalFromNotesPage';
 import EarScaleDegreeFromNote from './pages/ear/EarScaleDegreeFromNote';
 import FretboardPage from './pages/fretboard/FretboardPage';
@@ -124,6 +125,8 @@ function App() {
 												ActiveNote={selectedNote}
 												IsSharp={isSharp}
 											/>
+										) : activeSubTask === '2' ? (
+											<EarChordTypeIdentification />
 										) : null
 									}
 								/>

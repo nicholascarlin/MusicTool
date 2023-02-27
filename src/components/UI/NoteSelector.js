@@ -28,7 +28,6 @@ const NoteSelector = ({ ActiveNote, SetStatus, IsSharp }) => {
 			</div>
 			<select
 				onChange={(e) => {
-					console.log(e.target.value);
 					e.target.value !== '-' ? SetStatus(e.target.value) : SetStatus(null);
 				}}
 				className='md:hidden cursor-pointer mt-4 p-4 border border-gray-500 rounded-xl'>

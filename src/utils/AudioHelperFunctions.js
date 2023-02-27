@@ -4,11 +4,12 @@ export const GetRandomAudioOctave = () => {
 
 /**
  *
- * @param {String} note
+ * @param {Note} note obj
  * @param {int} octave
  * @returns Audio Object
  */
 export const NoteToAudio = (note, octave) => {
+	note = note.clean();
 	if (note.accidental === '#') {
 		return note.letter + '-' + octave + '.mp3';
 	}

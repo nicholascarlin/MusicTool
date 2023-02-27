@@ -63,6 +63,11 @@ export function areArraysSame(arr1, arr2) {
 	return true;
 }
 
+/**
+ *
+ * @param {*} note obj
+ * @returns int index
+ */
 export function GetMusicalAlphabetIndex(note) {
 	if (isNote(note)) {
 		note = note.clean();

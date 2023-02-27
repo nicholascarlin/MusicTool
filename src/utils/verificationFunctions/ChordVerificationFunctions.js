@@ -14,7 +14,5 @@ export const VerifyChordProgressionFromRoman = (ans, resp) => {
 		return Note.simplify(el);
 	});
 
-	console.log('RESP', resp);
-	console.log('ANS', ans);
 	return areArraysSame(resp, ans);
 };

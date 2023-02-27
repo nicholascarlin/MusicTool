@@ -7,6 +7,9 @@ import {
 } from './Arrays';
 
 import { FretboardNoteArray } from './FretboardNoteArray';
+import { GetRandomAudioOctave } from './AudioHelperFunctions';
+import _ from 'underscore';
+import { createChord } from './objects/chord';
 import { createScale } from './objects/scale';
 
 export const GetRandomNote = (isSharp) => {
@@ -79,4 +82,20 @@ export const GetTwoRandomScaleNotesAndDegree = (startingNote, isSharp) => {
 		scale.scale[randDegree],
 		randDegree === 0 ? 8 : randDegree + 1,
 	];
+};
+
+/**
+ *
+ * @param {*} RootNote
+ * @param {*} AvailableChordTypes
+ * @param {*} octave
+ * @returns Chord Obj
+ */
+export const GetRandomChord = (RootNote, AvailableChordTypes, octave) => {
+	let selectedChordType = _.sample(AvailableChordTypes);
+
+	const chordNameString = `${RootNote}${selectedChordType}`;
+	const tempChord = createChord(chordNameString, octave);
+
+	return tempChord;
 };
