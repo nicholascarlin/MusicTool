@@ -10,23 +10,28 @@ const InputSubmit = ({
 	OnShowClick,
 }) => {
 	const [refreshAnimation, setRefreshAnimationStatus] = useState(false);
-	const [buttonText, setButtonText] = useState('Submit');
 
-	const HandleSubClick = () => {
+	useEffect(() => {
+		setButtonText(IsAnswerCorrect === true ? 'Next' : 'Submit');
+	}, [IsAnswerCorrect]);
+
+	const handleSubmit = () => {
 		if (IsAnswerCorrect !== true || IsAnswerCorrect === null) {
-			setButtonText('Submit');
 			OnSubmit();
 		} else {
 			OnRefresh();
-			setButtonText('Submit');
 		}
+		setButtonText('Submit');
 	};
 
-	useEffect(() => {
-		if (IsAnswerCorrect === true) {
-			setButtonText('Next');
+	const [buttonText, setButtonText] = useState('Submit');
+	const handleClick = () => {
+		if (IsAnswerCorrect !== true || IsAnswerCorrect === null) {
+			handleSubmit();
+		} else {
+			OnRefresh();
 		}
-	}, [IsAnswerCorrect]);
+	};
 
 	return (
 		<div>
@@ -55,16 +60,12 @@ const InputSubmit = ({
 				} transition-all duration-100`}
 			/>
 			<div
-				onClick={() => {
-					OnShowClick();
-				}}
+				onClick={OnShowClick}
 				className='hover:underline cursor-pointer text-gray-500 mt-4 text-center'>
 				Show Answer
 			</div>
 			<button
-				onClick={() => {
-					HandleSubClick();
-				}}
+				onClick={handleClick}
 				className='mx-auto block border-2 p-4 px-12 rounded-full mt-6 border-blue-500'>
 				{buttonText}
 			</button>
