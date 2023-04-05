@@ -18,5 +18,3 @@ export const shouldRenderAccidentalSelector = () => {
 		pathname.includes('/ear')
 	);
 };
-
-export const determineActiveRoute = () => {};
