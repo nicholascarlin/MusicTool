@@ -1,11 +1,7 @@
-import './Header.css';
-
-import { createRef, useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 import { AiFillCaretLeft } from 'react-icons/ai';
 import { GiGuitarHead } from 'react-icons/gi';
-import gsap from 'gsap';
 
 const NavHeaderObjects = [
 	{
@@ -64,33 +60,25 @@ const NavHeaderObjects = [
 	},
 ];
 
-const Header = ({}) => {
-	const location = useLocation();
-	const navigate = useNavigate();
-
-	const $root = useRef();
-	const $indicator1 = useRef();
-	const $indicator2 = useRef();
-	const $items = useRef(NavHeaderObjects.map(createRef));
-	const [active, setActive] = useState(0);
-	const [prevActive, setPrevActive] = useState(0);
+const Header = () => {
+	const [activeHeaderItem, activeHeaderIndex] = useState(0);
 	const [activeDropDown, setActiveDropDown] = useState(false);
 
 	useEffect(() => {
-		// let paths = ['/intervals', '/fretboard', '/scales', '/chords', '/ear'];
+		let paths = ['/intervals', '/fretboard', '/scales', '/chords', '/ear'];
 
-		// if (location.pathname !== '/about') {
-		// 	setActive(paths.indexOf(location.pathname));
-		// 	setPrevActive(paths.indexOf(location.pathname));
-		// } else {
-		// 	setActive(0);
-		// 	setPrevActive(0);
-		// }
+		const currentPath = window.location.pathname.split('/')[1];
+
+		if (currentPath !== 'about') {
+			console.log('INDEX', paths.indexOf(`/${currentPath}`));
+			activeHeaderIndex(paths.indexOf(`/${currentPath}`));
+		} else {
+			activeHeaderIndex(0);
+		}
 		console.log('LOCATION', window.location.pathname);
 	}, []);
 
 	const HandlePrimaryItemClick = (e, item, index) => {
-		setActive(index);
 		if (item.subItems) {
 			e.preventDefault();
 			if (activeDropDown && activeDropDown.index === index) {
@@ -101,14 +89,14 @@ const Header = ({}) => {
 			}
 		} else {
 			//Does not have subItems
-			navigate(item.href);
+			window.location.pathname = item.href;
 			setActiveDropDown(null);
 		}
 	};
 
 	const HandleSubItemClick = (e, subItem) => {
 		e.preventDefault();
-		navigate(subItem.href);
+		window.location.pathname = subItem.href;
 		setActiveDropDown(null);
 	};
 
@@ -125,11 +113,16 @@ const Header = ({}) => {
 						<div
 							onClick={(e) => {
 								HandlePrimaryItemClick(e, navHeaderItem, navHeaderIdx);
-							}}
-							className=''>
+							}}>
 							<div className='flex items-center'>
 								<div
-									className={`transition-all peer duration-300 hover:underline ${navHeaderItem.color} cursor-pointer`}>
+									className={`transition-all peer duration-300 hover:underline ${
+										navHeaderItem.color
+									} cursor-pointer ${
+										navHeaderIdx === activeHeaderItem
+											? 'underline font-bold'
+											: ''
+									}`}>
 									{navHeaderItem.name}
 								</div>
 								{navHeaderItem.subItems ? (
@@ -145,8 +138,8 @@ const Header = ({}) => {
 						</div>
 					);
 				})}
-				<div className='absolute z-50 top-6 left-0 right-0 bg-white border rounded-xl'>
-					{activeDropDown ? (
+				{activeDropDown ? (
+					<div className='absolute z-50 top-6 left-0 right-0 bg-white border rounded-xl'>
 						<div className='divide-y'>
 							{activeDropDown?.subItems?.map((subItem, subIdx) => {
 								return (
@@ -158,8 +151,8 @@ const Header = ({}) => {
 								);
 							})}
 						</div>
-					) : null}
-				</div>
+					</div>
+				) : null}
 			</div>
 			<div className='text-right flex justify-end'>
 				<div className='hover:border-purple-500 hover:text-purple-500 border-gray-400 text-gray-400 transition-all duration-300 cursor-pointer rounded-full border p-2 px-6'>
