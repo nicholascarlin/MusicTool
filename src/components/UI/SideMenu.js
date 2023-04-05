@@ -14,7 +14,7 @@ const SideMenu = ({
 	const [isOpen, setIsOpen] = useState(false);
 
 	let iconStyle =
-		'absolute right-4 top-4 text-4xl cursor-pointer hover:text-5xl transition-all z-10';
+		'absolute right-4 top-4 text-4xl cursor-pointer hover:text-5xl transition-all';
 
 	return (
 		<>
