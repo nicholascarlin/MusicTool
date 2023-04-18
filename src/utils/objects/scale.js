@@ -1,7 +1,7 @@
 // scale.js
 
-var note = require('./note');
-var interval = require('./interval');
+var note = require('./Note');
+var interval = require('./Interval');
 var capitalize = require('capitalize');
 var _ = require('underscore');
 var mod = require('mod-loop');

@@ -1,6 +1,6 @@
 // note.js
 
-var interval = require('./interval');
+var interval = require('./Interval');
 
 var mod = require('mod-loop');
 var _ = require('underscore');

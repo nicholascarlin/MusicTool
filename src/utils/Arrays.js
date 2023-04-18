@@ -1,4 +1,4 @@
-import { isNote } from './objects/note';
+import { isNote } from './objects/Note';
 
 export const SharpNotes = [
 	'C',

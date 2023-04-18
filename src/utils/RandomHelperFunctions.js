@@ -9,8 +9,8 @@ import {
 import { FretboardNoteArray } from './FretboardNoteArray';
 import { GetRandomAudioOctave } from './AudioHelperFunctions';
 import _ from 'underscore';
-import { createChord } from './objects/chord';
-import { createScale } from './objects/scale';
+import { createChord } from './objects/Chord';
+import { createScale } from './objects/Scale';
 
 export const GetRandomNote = (isSharp) => {
 	let notes = isSharp ? SharpNotes : FlatNotes;

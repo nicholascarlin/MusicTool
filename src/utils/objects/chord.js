@@ -1,34 +1,34 @@
 // chord.js
 
-var note = require('./note');
-var interval = require('./interval');
-var scale = require('./scale');
+var note = require('./Note');
+var interval = require('./Interval');
+var scale = require('./Scale');
 var _ = require('underscore');
 
 // Parse a chord symbol and return root, chord, bass
-var parseChordSymbol = function (chord) {
-	var noteRegex = '[A-Ga-g][#b]{0,2}';
-	var root = chord.match(new RegExp('^' + noteRegex))[0];
-	var bass = null;
-	var symbol;
+export const parseChordSymbol = (chord) => {
+	const noteRegex = /[A-Ga-g][#b]{0,2}/;
+	let root = chord.match(new RegExp(`^${noteRegex.source}`))[0];
+	let bass = null;
+	let symbol;
 
 	root = note.create(root);
 
 	// Strip note, strip spaces, strip bass
 	symbol = chord
-		.replace(/[\s]/g, '')
-		.replace(new RegExp('^' + noteRegex), '')
-		.replace(new RegExp('/' + noteRegex + '$'), '');
+		.replace(/\s/g, '')
+		.replace(new RegExp(`^${noteRegex.source}`), '')
+		.replace(new RegExp(`/${noteRegex.source}$`), '');
 
-	bass = chord.match(new RegExp('/' + noteRegex + '$'));
+	bass = chord.match(new RegExp(`/${noteRegex.source}$`));
 	if (bass) bass = note.create(bass[0].slice(1));
 
-	return { root: root, symbol: symbol, bass: bass };
+	return { root, symbol, bass };
 };
 
 // Replace aliases in chord symbol
-var handleAliases = function (symbol) {
-	var parentheticals;
+const handleAliases = (symbol) => {
+	let parentheticals;
 
 	if (symbol === '') return 'M'; // No symbol means major triad
 
@@ -43,7 +43,7 @@ var handleAliases = function (symbol) {
 
 	// Remove parentheses unless they are significant, i.e. they contain an 11, or 13
 	parentheticals = symbol.match(/\([^\)]*\)/g);
-	_.each(parentheticals, function (parenthetical) {
+	parentheticals.forEach((parenthetical) => {
 		if (
 			parenthetical.indexOf('11') === -1 &&
 			parenthetical.indexOf('13') === -1
@@ -56,13 +56,11 @@ var handleAliases = function (symbol) {
 };
 
 // Rotate an array so that the given index is first
-var rotateArr = function (arr, index) {
-	return arr.slice(index).concat(arr.slice(0, index));
-};
+const rotateArr = (arr, index) => [...arr.slice(index), ...arr.slice(0, index)];
 
 // Given a chord symbol, return array of interval qualities
-var getIntervals = function (chord) {
-	var intervals = [];
+const getIntervals = (chord) => {
+	let intervals = [];
 
 	// Assume P1, M3. and P5
 	intervals[1] = 'P';
@@ -169,25 +167,23 @@ var getIntervals = function (chord) {
 	return intervals;
 };
 
-var tryInversion = function (inversion) {
-	var root = inversion.root;
-	var bass = inversion.bass;
-	var notes = inversion.notes;
+const tryInversion = (inversion) => {
+	let root = inversion.root;
+	let bass = inversion.bass;
+	let notes = inversion.notes;
 
 	// We designate an inversion "reasonable" if we think it is
 	// likely to be the correct inversion (default to true)
-	var reasonable = true;
+	let reasonable = true;
 
 	// Return true if interval is present in this chord
-	var hasInt = function (interval) {
-		return _.find(notes, function (n) {
-			return root.transpose(interval).enharmonic(n);
-		});
+	const hasInt = (interval) => {
+		return notes.some((n) => root.transpose(interval).enharmonic(n));
 	};
 
-	var symbol = '';
+	let symbol = '';
 
-	var noThird = false;
+	let noThird = false;
 
 	if (hasInt('M3')) {
 		if (hasInt('aug5') && !(hasInt('M7') || hasInt('m7'))) {
@@ -311,14 +307,11 @@ var tryInversion = function (inversion) {
 	};
 };
 
-var getPossibleChords = function () {
-	var notes = _.map(arguments, function (n) {
-		return note.create(n);
-	});
+const getPossibleChords = (...args) => {
+	const notes = args.map((n) => note.create(n));
 
-	// Array of all possible inversions
-	var inversions = _.map(notes, function (n, i) {
-		var inverted = rotateArr(notes, i);
+	const inversions = notes.map((n, i) => {
+		const inverted = rotateArr(notes, i);
 		return {
 			root: n,
 			bass: notes[0],
@@ -326,50 +319,40 @@ var getPossibleChords = function () {
 		};
 	});
 
-	return _.chain(inversions)
+	return inversions
 		.map(tryInversion)
-		.sortBy(function (r) {
-			return r.reasonable ? 0 : 1;
-		})
-		.uniq(false, function (r) {
-			return r.symbol;
-		})
-		.value();
+		.sort((a, b) => (a.reasonable ? 0 : 1) - (b.reasonable ? 0 : 1))
+		.filter(
+			(elem, index, self) =>
+				index === self.findIndex((t) => t.symbol === elem.symbol)
+		);
 };
 
-var getPossibleChordNames = function () {
-	return getPossibleChords.apply(this, arguments).map(function (n) {
-		return n.symbol;
-	});
+const getPossibleChordNames = (...args) => {
+	return getPossibleChords(...args).map((n) => n.symbol);
 };
 
-var getPossibleChordNamesFromArray = function (arr) {
-	return getPossibleChordNames.apply(this, arr);
+const getPossibleChordNamesFromArray = (arr) => {
+	return getPossibleChordNames(...arr);
 };
 
-var identify = function () {
-	var results = getPossibleChords.apply(this, arguments);
+const identify = (...args) => {
+	const results = getPossibleChords(...args);
+	const reasonable = results.find((obj) => obj.reasonable);
 
-	// Look for a "reasonable" result
-	var reasonable = _.find(results, function (obj) {
-		return obj.reasonable;
-	});
-
-	// Use reasonable result, default to root position
-	var chord = reasonable ? reasonable.symbol : results[0].symbol;
+	const chord = reasonable ? reasonable.symbol : results[0].symbol;
 
 	return chord;
 };
 
-var identifyArray = function (arr) {
-	return identify.apply(this, arr);
+const identifyArray = (arr) => {
+	return identify(...arr);
 };
 
-// Return an array of notes in a chord
-var makeChord = function (root, bass, intervals) {
-	var chord = _.chain(intervals)
-		.map(function (quality, number) {
-			var int;
+const makeChord = (root, bass, intervals) => {
+	const chord = intervals
+		.map((quality, number) => {
+			let int;
 			if (quality) {
 				// #9 is stored as b10, so special case this
 				if (number === 10 && quality === 'm') {
@@ -380,18 +363,17 @@ var makeChord = function (root, bass, intervals) {
 				return root.transpose(int);
 			}
 		})
-		.compact()
-		.value();
+		.filter((note) => note);
 
-	var bassIndex;
+	let bassIndex;
 
 	// Handle slash chords
 	if (bass && !root.enharmonic(bass)) {
-		bassIndex = _.findIndex(chord, bass.enharmonic.bind(bass));
+		bassIndex = chord.findIndex((n) => n.enharmonic(bass));
 
 		if (bassIndex > -1) {
 			// Rotate chord so bass is first
-			chord = rotateArr(chord, bassIndex);
+			chord.unshift(...chord.splice(bassIndex, 1));
 		} else {
 			// Otherwise, add bass to beginning
 			chord.unshift(bass);
@@ -402,42 +384,34 @@ var makeChord = function (root, bass, intervals) {
 };
 
 // Make a chord object given root, symbol, bass
-var makeChordObject = function (root, symbol, bass) {
-	var name = root.name + symbol;
-	var octave = bass ? bass.octave : root.octave;
+const makeChordObject = (root, symbol, bass) => {
+	let name = `${root.name}${symbol}`;
+	const octave = bass ? bass.octave : root.octave;
 
-	if (bass) name += '/' + bass.name;
+	if (bass) name += `/${bass.name}`;
 	return new Chord(name, octave);
 };
 
-// Given an ordered list of scales and a chord symbol, optimize order
-var optimizeScalePrecedence = function (scales, chord) {
-	// Exclude scales with a particular interval
-	var exclude = function (int) {
-		scales = _.filter(scales, function (scale) {
-			return !scale.hasInterval(int);
-		});
+const optimizeScalePrecedence = (scales, chord) => {
+	const exclude = (int) => {
+		scales = scales.filter((scale) => !scale.hasInterval(int));
 	};
 
-	// Add a scale at a particular index
-	var include = function (index, scaleId) {
+	const include = (index, scaleId) => {
 		scales.splice(index, 0, scale.create(chord.root, scaleId));
 	};
 
-	if (
-		_.includes(['m', 'm6', 'm7', 'm9', 'm11', 'm13'], chord.formattedSymbol)
-	) {
+	if (['m', 'm6', 'm7', 'm9', 'm11', 'm13'].includes(chord.formattedSymbol)) {
 		exclude('M3');
 	}
 	if (
-		_.includes(
-			['7', '9', '11', '13', 'm7', 'm9', 'm11', 'm13'],
+		['7', '9', '11', '13', 'm7', 'm9', 'm11', 'm13'].includes(
 			chord.formattedSymbol
 		)
 	) {
 		exclude('M7');
 	}
-	if (_.includes(['M7', 'M9', 'M11', 'M13'], chord.formattedSymbol)) {
+	if (['M7', 'M9', 'M11', 'M13'].includes(chord.formattedSymbol)) {
 		exclude('m7');
 	}
 	if (
@@ -446,8 +420,7 @@ var optimizeScalePrecedence = function (scales, chord) {
 	) {
 		exclude('m7');
 	}
-
-	if (_.includes(['7', '7#9', '7+9', '7#11', '7+11'], chord.formattedSymbol)) {
+	if (['7', '7#9', '7+9', '7#11', '7+11'].includes(chord.formattedSymbol)) {
 		include(2, 'blues');
 	}
 
@@ -455,14 +428,12 @@ var optimizeScalePrecedence = function (scales, chord) {
 };
 
 // Given a chord object and an octave number, assign appropriate octave numbers to notes
-var setOctave = function (obj, octave) {
-	var lastNote = obj.chord[0];
+const setOctave = (obj, octave) => {
+	let lastNote = obj.chord[0];
 
-	obj.chord = _.map(obj.chord, function (n) {
-		// Every time a note is "lower" than the last note, we're in a new octave
+	obj.chord = obj.chord.map((n) => {
 		if (n.lowerThan(lastNote)) octave += 1;
 
-		// As a side-effect, update the octaves for root and bass
 		if (n.enharmonic(obj.root)) {
 			obj.root = obj.root.inOctave(octave);
 		}
@@ -477,7 +448,7 @@ var setOctave = function (obj, octave) {
 
 class Chord {
 	constructor(chord, octave) {
-		var intervals;
+		let intervals;
 
 		this.name = chord;
 
@@ -501,53 +472,61 @@ class Chord {
 			return this.chord.join(' ');
 		};
 	}
+
 	// Return a list of scales that match chord, in order of precedence
 	scales() {
-		var root = note.create(this.root.name); // Remove octave number
-		var chord = this.chord;
+		const root = note.create(this.root.name); // Remove octave number
+		const chord = this.chord;
 
-		var scales = _.map(scale.precedence, function (name) {
+		let scales = _.map(scale.precedence, (name) => {
 			return scale.create(root, name);
 		});
 
-		scales = _.filter(scales, function (scale) {
+		scales = _.filter(scales, (scale) => {
 			return _.every(chord, scale.contains.bind(scale));
 		});
 
 		return optimizeScalePrecedence(scales, this);
 	}
+
 	// Return highest precedence scale that matches chord
 	scale() {
 		return this.scales()[0];
 	}
+
 	// Return a list of scale names that match chord, in order of precedence
 	scaleNames() {
 		return _.pluck(this.scales(), 'name');
 	}
+
 	transpose(int, down) {
-		var root = this.root.transpose(int, down);
-		var bass = this.bass ? this.bass.transpose(int, down) : null;
+		const root = this.root.transpose(int, down);
+		const bass = this.bass ? this.bass.transpose(int, down) : null;
 		return makeChordObject(root, this.symbol, bass);
 	}
-	clean() {
-		var root = this.root.clean();
-		var bass = this.bass ? this.bass.clean() : null;
-		var chord = makeChordObject(root, this.symbol, bass);
 
-		chord.chord = _.map(chord.chord, function (note) {
+	clean() {
+		const root = this.root.clean();
+		const bass = this.bass ? this.bass.clean() : null;
+		const chord = makeChordObject(root, this.symbol, bass);
+
+		chord.chord = _.map(chord.chord, (note) => {
 			return note.clean();
 		});
 
 		return chord;
 	}
+
 	// Return true if a given note is in a chord, matching octave numbers if applicable
 	contains(n) {
 		return note.create(n).containedIn(this.chord);
 	}
+
 	// Return true if a given interval is in a chord, matching octave numbers if applicable
 	hasInterval(int) {
 		return note.create(this.root).transpose(int).containedIn(this.chord);
 	}
+
 	inOctave(octave) {
 		return new Chord(this.name, octave);
 	}

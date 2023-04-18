@@ -2,7 +2,7 @@ import {
 	GetRandomAudioOctave,
 	NoteToAudio,
 } from '../../utils/AudioHelperFunctions';
-import { Note, displayNote } from '../../utils/objects/note';
+import { Note, displayNote } from '../../utils/objects/Note';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { AiOutlineArrowRight } from 'react-icons/ai';

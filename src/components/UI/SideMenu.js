@@ -1,25 +1,16 @@
+import { AiFillSetting, AiOutlineClose } from 'react-icons/ai';
 import React, { useState } from 'react';
 
-import { AiOutlineClose } from 'react-icons/ai';
-import ChordFilters from '../filters/ChordFilters';
-import EarFilters from '../filters/EarFilters';
-import { GiHamburgerMenu } from 'react-icons/gi';
-import IntervalsFilters from '../filters/IntervalsFilters';
-
-const SideMenu = ({
-	SetActiveSubTask,
-	SetChordProgression,
-	ChordProgression,
-}) => {
+const SideMenu = () => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	let iconStyle =
-		'absolute right-4 top-4 text-4xl cursor-pointer hover:text-5xl transition-all';
+		'absolute right-4 top-4 text-4xl cursor-pointer hover:text-5xl transition-all text-gray-500';
 
 	return (
 		<>
 			{!isOpen ? (
-				<GiHamburgerMenu
+				<AiFillSetting
 					onClick={() => {
 						setIsOpen(true);
 					}}
@@ -36,25 +27,7 @@ const SideMenu = ({
 			<div
 				className={`border-l-2 h-full  marginTop-[105px] right-0 fc-center pt-20 ${
 					isOpen ? 'w-[25vw]' : 'w-0'
-				} ease-in-out duration-300`}>
-				{isOpen ? (
-					window.location.pathname === '/intervals' ? (
-						<IntervalsFilters
-							SetActiveSubTask={SetActiveSubTask}
-							isOpen={isOpen}
-						/>
-					) : window.location.pathname === '/chords' ? (
-						<ChordFilters
-							SetActiveSubTask={SetActiveSubTask}
-							isOpen={isOpen}
-							ChordProgression={ChordProgression}
-							SetChordProgression={SetChordProgression}
-						/>
-					) : window.location.pathname === '/ear' ? (
-						<EarFilters SetActiveSubTask={SetActiveSubTask} />
-					) : null
-				) : null}
-			</div>
+				} ease-in-out duration-300`}></div>
 		</>
 	);
 };

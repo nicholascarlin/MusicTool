@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import {
 	shouldRenderAccidentalSelector,
 	shouldRenderNoteSelector,
-} from './utils/RouteHelperFunctions';
+} from './utils/routing/RouteHelperFunctions';
 
 import AccidentalSelector from './components/UI/AccidentalSelector';
 import AppRoutes from './pages/RouteHandlers';
@@ -18,14 +18,8 @@ import SideMenu from './components/UI/SideMenu';
 function App() {
 	const [isSharp, setSharpStatus] = useState(true);
 	const [selectedNote, setSelectedNote] = useState(null);
-	const [activeSubTask, setActiveSubTask] = useState('0');
+
 	const [chordProgression, setChordProgression] = useState([0, 0, 0, 0]);
-
-	// Chords
-
-	const SetActiveSubTask = (value) => {
-		setActiveSubTask(value);
-	};
 
 	return (
 		<div className='w-screen h-screen'>
@@ -55,7 +49,7 @@ function App() {
 								ActiveChordProgression={chordProgression}
 							/>
 						</div>
-						{window.location.pathname.includes('/intervals') ||
+						{/* {window.location.pathname.includes('/intervals') ||
 						window.location.pathname.includes('/chords') ||
 						window.location.pathname.includes('/ear') ? (
 							<SideMenu
@@ -63,7 +57,7 @@ function App() {
 								SetChordProgression={setChordProgression}
 								ChordProgression={chordProgression}
 							/>
-						) : null}
+						) : null} */}
 					</div>
 				</div>
 			</div>
