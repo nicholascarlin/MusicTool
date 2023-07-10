@@ -15,6 +15,7 @@ export const shouldRenderAccidentalSelector = () => {
 	return (
 		pathname.includes('/intervals') ||
 		pathname.includes('/chords') ||
+		pathname.includes('/fretboard') ||
 		pathname.includes('/ear')
 	);
 };

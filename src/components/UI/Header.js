@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { AiFillCaretLeft } from 'react-icons/ai';
 import { GiGuitarHead } from 'react-icons/gi';
 
-const NavHeaderObjects = [
+export const NavHeaderObjects = [
 	{
 		name: 'Intervals',
 		color: 'text-[#f44336]',
@@ -102,7 +102,9 @@ const Header = () => {
 
 	return (
 		<div className='w-full border-b grid grid-cols-3 p-4 py-3 items-center'>
-			<div className='flex items-center gap-2 text-gray-400 w-fit'>
+			<div
+				className='flex items-center gap-2 text-gray-400 w-fit cursor-pointer'
+				onClick={() => (window.location.pathname = '/home')}>
 				<div>Guitar</div>
 				<GiGuitarHead className='text-2xl' />
 				<div>Theory</div>
@@ -139,7 +141,7 @@ const Header = () => {
 					);
 				})}
 				{activeDropDown ? (
-					<div className='absolute z-50 top-6 left-0 right-0 bg-white border rounded-xl'>
+					<div className='absolute z-50 top-8 left-0 right-0 bg-white border rounded-xl'>
 						<div className='divide-y'>
 							{activeDropDown?.subItems?.map((subItem, subIdx) => {
 								return (

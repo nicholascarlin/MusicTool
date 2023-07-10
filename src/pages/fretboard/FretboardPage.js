@@ -19,8 +19,16 @@ const FretboardPage = ({ IsSharp }) => {
 		GetRandomFretboardNoteIndex()
 	);
 
+	const [caAnimation, setCAAnimationStatus] = useState(null);
+
 	const SetActiveNoteIndex = () => {
 		setActiveNoteIndex(GetRandomFretboardNoteIndex());
+	};
+
+	const CorrectAnimationHandler = () => {
+		setTimeout(() => {
+			setCAAnimationStatus(null);
+		}, [1000]);
 	};
 
 	const HandleSubmit = (submittedNote) => {
@@ -31,6 +39,8 @@ const FretboardPage = ({ IsSharp }) => {
 		if (isCorrect) {
 			setIncorrectAnswers(null);
 			SetActiveNoteIndex();
+			setCAAnimationStatus(submittedNote);
+			CorrectAnimationHandler();
 			setScore(() => {
 				return {
 					correct: score.correct + 1,
@@ -88,12 +98,17 @@ const FretboardPage = ({ IsSharp }) => {
 								HandleSubmit(note);
 							}}
 							key={idx}
-							className={`border shrink-0 w-12 h-12 text-center fc-center-center rounded-xl  cursor-pointer transition-all duration-300 hover:h-14 hover:w-14 ${
+							className={`border shrink-0 w-12 h-12 text-center z-10 fc-center-center rounded-xl relative cursor-pointer transition-all duration-300 hover:h-14 hover:w-14 ${
 								incorrectAnswers?.includes(note)
 									? 'border-red-500'
 									: 'border-gray-300 hover:border-gray-500'
 							}`}>
 							{note}
+							<div
+								className={`transition-all duration-300 absolute w-12 h-12 hover:h-14 hover:w-14 border border-green-500 z-20 rounded-xl ${
+									caAnimation === note ? 'animate-ping' : 'hidden'
+								}`}
+							/>
 						</div>
 					);
 				})}

@@ -43,7 +43,7 @@ const handleAliases = (symbol) => {
 
 	// Remove parentheses unless they are significant, i.e. they contain an 11, or 13
 	parentheticals = symbol.match(/\([^\)]*\)/g);
-	parentheticals.forEach((parenthetical) => {
+	parentheticals?.forEach((parenthetical) => {
 		if (
 			parenthetical.indexOf('11') === -1 &&
 			parenthetical.indexOf('13') === -1

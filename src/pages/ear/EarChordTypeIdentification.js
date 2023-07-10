@@ -21,6 +21,7 @@ const EarChordTypeIdentification = ({ ActiveNote, IsSharp }) => {
 	const [audioArray, setAudioArray] = useState(null);
 	const [chord, setChord] = useState(null);
 	const [chordText, setChordText] = useState('?');
+	const [caAnimation, setCAAnimationStatus] = useState(null);
 	const [score, setScore] = useState({
 		correct: 0,
 		total: 0,
@@ -61,10 +62,18 @@ const EarChordTypeIdentification = ({ ActiveNote, IsSharp }) => {
 		setIncorrectAnswers(null);
 	};
 
+	const CorrectAnimationHandler = () => {
+		setTimeout(() => {
+			setCAAnimationStatus(null);
+		}, [1000]);
+	};
+
 	const HandleSubmit = (cType) => {
 		let isCorrect = cType === chord.symbol;
 		if (isCorrect) {
 			SetValues();
+			setCAAnimationStatus(cType);
+			CorrectAnimationHandler();
 			setScore(() => {
 				return {
 					correct: score.correct + 1,
@@ -150,12 +159,17 @@ const EarChordTypeIdentification = ({ ActiveNote, IsSharp }) => {
 								HandleSubmit(cType);
 							}}
 							key={idx}
-							className={`border shrink-0 w-12 h-12 text-center fc-center-center rounded-xl  cursor-pointer transition-all duration-300 hover:h-14 hover:w-14 ${
+							className={`border shrink-0 relative w-12 h-12 text-center fc-center-center rounded-xl  cursor-pointer transition-all duration-300 hover:h-14 hover:w-14 ${
 								incorrectAnswers?.includes(cType)
 									? 'border-red-500'
 									: 'border-gray-300 hover:border-gray-500'
 							}`}>
 							{cType}
+							<div
+								className={`transition-all duration-300 absolute w-12 h-12 hover:h-14 hover:w-14 border border-green-500 z-20 rounded-xl ${
+									caAnimation === cType ? 'animate-ping' : 'hidden'
+								}`}
+							/>
 						</div>
 					);
 				})}

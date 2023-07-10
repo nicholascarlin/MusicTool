@@ -7,6 +7,7 @@ import EarChordTypeIdentification from './ear/EarChordTypeIdentification';
 import EarIntervalFromNotesPage from './ear/EarIntervalFromNotesPage';
 import EarScaleDegreeFromNote from './ear/EarScaleDegreeFromNote';
 import FretboardPage from './fretboard/FretboardPage';
+import HomePage from './HomePage';
 import IntervalFromNotePage from './intervals/IntervalFromNotePage';
 import NoteFromIntervalPage from './intervals/NoteFromIntervalPage';
 
@@ -89,6 +90,7 @@ const AppRoutes = ({ IsSharp, ActiveNote, ChordProgression }) => {
 			/>
 			<Route path='/about' element={<AboutPage />} />
 			<Route path='*' element={<Navigate to='/about' replace />} />
+			<Route path='/home' element={<HomePage />} />
 		</Routes>
 	);
 };
